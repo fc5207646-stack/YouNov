@@ -1,0 +1,87 @@
+name: younov
+
+services:
+  lb:
+    image: ${NGINX_IMAGE:-docker.io/library/nginx:1.27-alpine}
+    depends_on:
+      - web
+      - api
+    ports:
+      - "80:80"
+    volumes:
+      - ./lb/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - younov_net
+
+  web:
+    build:
+      context: ..
+      dockerfile: infra/web/Dockerfile
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-docker.io/library/node:20-alpine}
+        NGINX_IMAGE: ${NGINX_IMAGE:-docker.io/library/nginx:1.27-alpine}
+    environment:
+      # 前端在构建时需要的环境变量（这里用占位；你可在 CI/CD 中注入）
+      - VITE_API_BASE=/api
+      - VITE_SITE_ORIGIN=http://localhost
+    networks:
+      - younov_net
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/api/Dockerfile
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-docker.io/library/node:20-alpine}
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - WEB_ORIGIN=http://localhost
+      - DATABASE_URL=postgresql://younov:younov@db:5432/younov?schema=public
+      - REDIS_URL=redis://cache:6379
+      - JWT_SECRET=change-me
+      - AUTH_COOKIE_NAME=younov_session
+      - COOKIE_SECURE=false
+      - COOKIE_SAMESITE=lax
+      # 第三方支付（占位，后续你补充）
+      - STRIPE_SECRET_KEY=
+      - STRIPE_WEBHOOK_SECRET=
+      - STRIPE_PRICE_BASIC=
+      - STRIPE_PRICE_PREMIUM=
+      - STRIPE_PRICE_SVIP=
+      # 订阅成功回跳（可由前端处理）
+      - BILLING_SUCCESS_URL=http://localhost/subscription?status=success
+      - BILLING_CANCEL_URL=http://localhost/subscription?status=cancel
+    depends_on:
+      - db
+      - cache
+    networks:
+      - younov_net
+
+  db:
+    image: ${POSTGRES_IMAGE:-docker.io/library/postgres:16-alpine}
+    environment:
+      - POSTGRES_DB=younov
+      - POSTGRES_USER=younov
+      - POSTGRES_PASSWORD=younov
+    volumes:
+      - younov_db_data:/var/lib/postgresql/data
+    networks:
+      - younov_net
+
+  cache:
+    image: ${REDIS_IMAGE:-docker.io/library/redis:7-alpine}
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - younov_redis_data:/data
+    networks:
+      - younov_net
+
+networks:
+  younov_net:
+    driver: bridge
+
+volumes:
+  younov_db_data:
+  younov_redis_data:
+

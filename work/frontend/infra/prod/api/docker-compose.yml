@@ -1,0 +1,14 @@
+name: younov-prod-api
+
+services:
+  api:
+    build:
+      context: ../../..
+      dockerfile: infra/api/Dockerfile
+    env_file:
+      - ./api.env
+    ports:
+      # 建议用防火墙仅允许 LB 访问该端口
+      - "8080:8080"
+    restart: unless-stopped
+

@@ -1,0 +1,22 @@
+## Pages
+- [Admin:](/adminnoveldetail): No description available
+- [Login | YouNov](/login): No description available
+- [Manage Chapters -](/adminchapters): No description available
+- [Premium Content | YouNov](/chapterreader): No description available
+- [Register | YouNov](/register): No description available
+- [Untitled Page](/noveldetail): No description available
+- [YouNov - Access Denied | 尤诺夫·小说阅读平台](/accessdenied): No description available
+- [YouNov - Admin Dashboard | 尤诺夫·小说阅读平台](/admindashboard): No description available
+- [YouNov - Admin Login](/adminlogin): Administrative access only
+- [YouNov - Analytics](/adminanalytics): No description available
+- [YouNov - Browse Novels | 尤诺夫·小说阅读平台](/browse): Browse and discover thousands of online novels and web stories across all genres on YouNov.
+- [YouNov - Home](/home): No description available
+- [YouNov - Leaderboard | 尤诺夫·小说阅读平台](/leaderboard): Discover the most popular and highest-rated novels on YouNov. See what readers are loving right now.
+- [YouNov - Manage Comments](/admincomments): No description available
+- [YouNov - Manage Novels](/adminnovels): No description available
+- [YouNov - Manage Users](/adminusers): No description available
+- [YouNov - My Profile | 尤诺夫·小说阅读平台](/profile): Manage your YouNov profile, reading history, and subscription settings.
+- [YouNov - Notifications](/adminnotifications): No description available
+- [YouNov - Plans](/subscription): No description available
+- [YouNov - Referral Program | 尤诺夫·小说阅读平台](/promotion): Refer friends to YouNov and earn free premium memberships. Share your referral code and unlock exclusive rewards.
+- [YouNov - Settings | 尤诺夫·小说阅读平台](/adminsettings): No description available

@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+work/api/node_modules/
+work/frontend/node_modules/
+
+# Build
+work/frontend/dist/
+
+# Env / secrets
+.env
+.env.*
+!*.env.example
+work/api/.env
+
+# Backups / uploads
+work/api/backups/
+work/api/uploads/
+backup/
+backup-data/
+
+# Logs / cache
+*.log
+.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
