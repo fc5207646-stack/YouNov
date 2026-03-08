@@ -711,29 +711,35 @@ app.get('/api/free-novels', async (req, res) => {
 app.get('/api/novels/:slug', async (req, res) => {
   const slug = String(req.params.slug);
   
-  // Fetch novel data first for speed
-  const novel = await prisma.novel.findUnique({
+  const selectNovel = {
+    id: true,
+    slug: true,
+    title: true,
+    authorName: true,
+    coverUrl: true,
+    description: true,
+    tags: true,
+    category: true,
+    views: true,
+    rating: true,
+    ratingCount: true,
+    status: true,
+    updatedAt: true,
+    chapters: {
+      where: { isPublished: true },
+      select: { wordCount: true }
+    }
+  };
+
+  let novel = await prisma.novel.findUnique({
     where: { slug },
-    select: {
-        id: true,
-        slug: true,
-        title: true,
-        authorName: true,
-        coverUrl: true,
-        description: true,
-        tags: true,
-        category: true,
-        views: true,
-        rating: true,
-        ratingCount: true,
-        status: true,
-        updatedAt: true,
-        chapters: {
-          where: { isPublished: true },
-          select: { wordCount: true }
-        }
-      }
+    select: selectNovel
   });
+
+  if (!novel && !req.get(INTERNAL_FALLBACK_HEADER) && PEER_API_URL) {
+    const peer = await fetchFromPeer(req.originalUrl || `/api/novels/${slug}`);
+    if (peer && peer.novel) return res.json(peer);
+  }
 
   if (!novel) return res.status(404).json({ error: 'not_found' });
 
@@ -835,7 +841,13 @@ app.get('/api/notifications', async (_req, res) => {
 
 app.get('/api/novels/:slug/chapters', async (req, res) => {
   const slug = String(req.params.slug);
-  const novel = await prisma.novel.findUnique({ where: { slug }, select: { id: true } });
+  let novel = await prisma.novel.findUnique({ where: { slug }, select: { id: true } });
+
+  if (!novel && !req.get(INTERNAL_FALLBACK_HEADER) && PEER_API_URL) {
+    const peer = await fetchFromPeer(req.originalUrl || `/api/novels/${slug}/chapters`);
+    if (peer && Array.isArray(peer.chapters)) return res.json(peer);
+  }
+
   if (!novel) return res.status(404).json({ error: 'not_found' });
 
   const chapters = await prisma.chapter.findMany({
@@ -849,6 +861,12 @@ app.get('/api/novels/:slug/chapters', async (req, res) => {
       isFree: true
     }
   });
+
+  if (chapters.length === 0 && !req.get(INTERNAL_FALLBACK_HEADER) && PEER_API_URL) {
+    const peer = await fetchFromPeer(req.originalUrl || `/api/novels/${slug}/chapters`);
+    if (peer && Array.isArray(peer.chapters) && peer.chapters.length > 0) return res.json(peer);
+  }
+
   return res.json({ chapters });
 });
 
