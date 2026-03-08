@@ -53,11 +53,11 @@ const ProfilePage = () => {
     }
   };
 
-  if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">Loading profile...</div>;
+  if (loading) return <div className="min-h-screen bg-page flex items-center justify-center text-slate-800">Loading profile...</div>;
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-white p-4">
+      <div className="min-h-screen bg-page flex flex-col items-center justify-center text-slate-800 p-4">
           <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
           <h2 className="text-xl font-bold mb-2">Error</h2>
           <p className="text-slate-400 mb-4">{error}</p>
@@ -70,7 +70,7 @@ const ProfilePage = () => {
   const isExpired = !isPremium;
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-page">
       <Helmet>
         <title>YouNov - My Profile | 尤诺夫·小说阅读平台</title>
         <meta name="description" content="Manage your YouNov profile, reading history, and subscription settings." />
@@ -84,14 +84,14 @@ const ProfilePage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-6xl mx-auto"
         >
-          <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 rounded-lg p-8 mb-8 border border-purple-500/20">
+          <div className="bg-gradient-to-br from-accent-900/40 to-pink-900/40 rounded-lg p-8 mb-8 border border-accent-500/20">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                  <User className="w-10 h-10 text-white" />
+                <div className="w-20 h-20 bg-gradient-to-br from-accent-500 to-pink-500 rounded-full flex items-center justify-center">
+                  <User className="w-10 h-10 text-slate-800" />
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-white mb-2">{user?.email}</h1>
+                  <h1 className="text-3xl font-bold text-slate-800 mb-2">{user?.email}</h1>
                   <p className="text-slate-300">{profile?.displayName}</p>
                   {isPremium && !isExpired && (
                     <div className="flex items-center gap-2 mt-2">
@@ -105,34 +105,34 @@ const ProfilePage = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
+            <div className="bg-white rounded-lg p-6 border border-slate-200 shadow-sm">
               <div className="flex items-center gap-3 mb-2">
-                <BookOpen className="w-5 h-5 text-purple-400" />
+                <BookOpen className="w-5 h-5 text-accent-400" />
                 <span className="text-slate-400">Reading History</span>
               </div>
-              <p className="text-3xl font-bold text-white">{readingHistory.length}</p>
+              <p className="text-3xl font-bold text-slate-800">{readingHistory.length}</p>
             </div>
 
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
+            <div className="bg-white rounded-lg p-6 border border-slate-200 shadow-sm">
               <div className="flex items-center gap-3 mb-2">
                 <Heart className="w-5 h-5 text-pink-400" />
                 <span className="text-slate-400">Favorites</span>
               </div>
-              <p className="text-3xl font-bold text-white">-</p>
+              <p className="text-3xl font-bold text-slate-800">-</p>
             </div>
 
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
+            <div className="bg-white rounded-lg p-6 border border-slate-200 shadow-sm">
               <div className="flex items-center gap-3 mb-2">
                 <Share2 className="w-5 h-5 text-green-400" />
                 <span className="text-slate-400">Referral Code</span>
               </div>
               <div className="flex items-center gap-2">
-                <p className="text-2xl font-bold text-white">{profile?.referral?.code || '—'}</p>
+                <p className="text-2xl font-bold text-slate-800">{profile?.referral?.code || '—'}</p>
                 <Button
                   size="sm"
                   variant="ghost"
                   onClick={copyReferralCode}
-                  className="text-purple-400 hover:text-purple-300"
+                  className="text-accent-400 hover:text-accent-300"
                 >
                   Copy
                 </Button>
@@ -141,20 +141,20 @@ const ProfilePage = () => {
           </div>
 
           <Tabs defaultValue="history" className="space-y-6">
-            <TabsList className="bg-slate-800 border border-slate-700 w-full md:w-auto">
-              <TabsTrigger value="history" className="data-[state=active]:bg-purple-500">
+            <TabsList className="bg-stone-100 border border-slate-200 w-full md:w-auto">
+              <TabsTrigger value="history" className="data-[state=active]:bg-accent-500">
                 <Clock className="w-4 h-4 mr-2" />
                 Reading History
               </TabsTrigger>
-              <TabsTrigger value="favorites" className="data-[state=active]:bg-purple-500">
+              <TabsTrigger value="favorites" className="data-[state=active]:bg-accent-500">
                 <Heart className="w-4 h-4 mr-2" />
                 Favorites
               </TabsTrigger>
-              <TabsTrigger value="subscription" className="data-[state=active]:bg-purple-500">
+              <TabsTrigger value="subscription" className="data-[state=active]:bg-accent-500">
                 <Crown className="w-4 h-4 mr-2" />
                 Subscription
               </TabsTrigger>
-              <TabsTrigger value="points" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">
+              <TabsTrigger value="points" className="data-[state=active]:bg-amber-500 data-[state=active]:text-slate-800">
                 <Trophy className="w-4 h-4 mr-2" />
                 Points & Rewards
               </TabsTrigger>
@@ -167,14 +167,14 @@ const ProfilePage = () => {
                   to={`/novel/${item.chapter?.novel?.slug}/chapter/${item.chapter?.id}`}
                   className="block"
                 >
-                  <div className="bg-slate-800 rounded-lg p-4 hover:bg-slate-700 transition-colors flex items-center gap-4">
+                  <div className="bg-white rounded-lg p-4 hover:bg-stone-50 border border-slate-200 transition-colors flex items-center gap-4">
                     <img
                       src={item.chapter?.novel?.coverUrl || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=100'}
                       alt={item.chapter?.novel?.title}
                       className="w-16 h-24 object-cover rounded"
                     />
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-white mb-1">{item.chapter?.novel?.title}</h3>
+                      <h3 className="text-lg font-semibold text-slate-800 mb-1">{item.chapter?.novel?.title}</h3>
                       <p className="text-slate-400 text-sm mb-2">
                         Chapter {item.chapter?.orderIndex}: {item.chapter?.title}
                       </p>
@@ -192,33 +192,33 @@ const ProfilePage = () => {
             </TabsContent>
 
             <TabsContent value="favorites">
-              <div className="bg-slate-800 rounded-lg p-12 text-center">
+              <div className="bg-white rounded-lg p-12 border border-slate-200 text-center">
                 <Heart className="w-16 h-16 text-slate-600 mx-auto mb-4" />
                 <p className="text-slate-400">No favorites yet</p>
               </div>
             </TabsContent>
 
             <TabsContent value="subscription">
-              <div className="bg-slate-800 rounded-lg p-8">
+              <div className="bg-white rounded-lg p-8 border border-slate-200">
                 {isPremium && !isExpired ? (
                   <div className="text-center">
                     <Crown className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-white mb-2">Premium Active</h3>
+                    <h3 className="text-2xl font-bold text-slate-800 mb-2">Premium Active</h3>
                     <p className="text-slate-300 mb-6">
                       Your subscription expires on {new Date(profile.subscription.expiresAt).toLocaleDateString()}
                     </p>
-                    <Button className="bg-gradient-to-r from-purple-500 to-pink-500">
+                    <Button className="bg-gradient-to-r from-accent-500 to-pink-500 text-white">
                       Manage Subscription
                     </Button>
                   </div>
                 ) : (
                   <div className="text-center">
-                    <h3 className="text-2xl font-bold text-white mb-4">Upgrade to Premium</h3>
+                    <h3 className="text-2xl font-bold text-slate-800 mb-4">Upgrade to Premium</h3>
                     <p className="text-slate-300 mb-6">
                       Unlock all premium chapters and exclusive content
                     </p>
                     <Link to="/subscription">
-                      <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                      <Button className="bg-gradient-to-r from-accent-500 to-pink-500 hover:from-accent-600 hover:to-pink-600 text-white">
                         View Plans
                       </Button>
                     </Link>
@@ -236,17 +236,17 @@ const ProfilePage = () => {
                     </div>
                     <div>
                       <h2 className="text-lg font-medium text-amber-200">Current Balance</h2>
-                      <p className="text-4xl font-bold text-white">{profile?.pointsBalance || 0} <span className="text-lg text-amber-400/70 font-normal">pts</span></p>
+                      <p className="text-4xl font-bold text-slate-800">{profile?.pointsBalance || 0} <span className="text-lg text-amber-400/70 font-normal">pts</span></p>
                     </div>
                   </div>
                   <div className="text-right bg-black/20 p-4 rounded-lg border border-white/5">
                     <p className="text-sm text-slate-400 uppercase tracking-wider font-semibold mb-1">Exchange Rate</p>
-                    <p className="text-xl font-bold text-white">10 Points = $1.00 USD</p>
+                    <p className="text-xl font-bold text-slate-800">10 Points = $1.00 USD</p>
                   </div>
                 </div>
 
                 <div>
-                   <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                   <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
                      <Clock className="w-5 h-5 text-slate-400" /> Points History
                    </h3>
                    <PointsHistoryTable userId={user.id} />

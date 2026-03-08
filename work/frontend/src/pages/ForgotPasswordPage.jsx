@@ -21,41 +21,41 @@ const ForgotPasswordPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-page flex items-center justify-center px-4">
       <Helmet>
         <title>Forgot Password | YouNov</title>
       </Helmet>
 
       <div className="w-full max-w-md">
-        <Card className="bg-slate-900/90 border-slate-800 shadow-2xl">
+        <Card className="bg-white border-slate-200 shadow-xl">
           <CardHeader>
-            <CardTitle className="text-white text-center flex items-center justify-center gap-2">
-              <Mail className="w-5 h-5 text-purple-400" />
+            <CardTitle className="text-slate-800 text-center flex items-center justify-center gap-2">
+              <Mail className="w-5 h-5 text-accent-400" />
               忘记密码
             </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-300">邮箱</Label>
+                <Label htmlFor="email" className="text-slate-700">邮箱</Label>
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-slate-800 border-slate-700 text-white"
+                  className="bg-stone-50 border-slate-200 text-slate-800"
                   placeholder="you@example.com"
                   required
                 />
               </div>
-              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700">
+              <Button type="submit" className="w-full bg-accent-600 hover:bg-accent-700">
                 发送重置邮件
               </Button>
             </form>
           </CardContent>
-          <CardFooter className="justify-center border-t border-slate-800 pt-4">
+          <CardFooter className="justify-center border-t border-slate-200 pt-4">
             <span className="text-slate-500 text-sm">
-              想起密码了？<Link to="/login" className="text-purple-400 hover:underline">返回登录</Link>
+              想起密码了？<Link to="/login" className="text-accent-400 hover:underline">返回登录</Link>
             </span>
           </CardFooter>
         </Card>

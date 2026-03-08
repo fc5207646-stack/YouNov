@@ -123,7 +123,7 @@ const AdminNovels = () => {
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-accent-600 hover:bg-accent-700">
                   <Plus className="w-4 h-4 mr-2" />
                   新建小说
                 </Button>
@@ -169,7 +169,7 @@ const AdminNovels = () => {
                       <input type="checkbox" checked={form.isPublished} onChange={(e) => setForm((p) => ({ ...p, isPublished: e.target.checked }))} />
                       发布（可被前台检索）
                     </label>
-                    <Button type="submit" disabled={submitting} className="bg-purple-600 hover:bg-purple-700">
+                    <Button type="submit" disabled={submitting} className="bg-accent-600 hover:bg-accent-700">
                       {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : '创建'}
                     </Button>
                   </div>
@@ -211,7 +211,7 @@ const AdminNovels = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <Link to={`/admin/novels/${n.slug}`} className="text-purple-400 hover:text-purple-300">详情</Link>
+                          <Link to={`/admin/novels/${n.slug}`} className="text-accent-400 hover:text-accent-300">详情</Link>
                           <Link to={`/admin/novels/${n.slug}/chapters`} className="text-slate-300 hover:text-white">章节</Link>
                           <Link to={`/novel/${n.slug}`} className="text-slate-500 hover:text-slate-300">前台</Link>
                         </div>

@@ -95,25 +95,25 @@ const SubscriptionPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-100">
+    <div className="min-h-screen bg-page font-sans text-slate-800">
       <Helmet><title>YouNov - Subscription</title></Helmet>
       <Header />
 
       {user && (
-        <div className="bg-gradient-to-r from-indigo-900 to-purple-900 border-b border-indigo-500/30 sticky top-16 z-10 shadow-lg">
+        <div className="bg-white border-b border-slate-200 sticky top-16 z-10 shadow-sm">
           <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-yellow-500/20 rounded-full border border-yellow-500/30">
-                <Coins className="w-8 h-8 text-yellow-400" />
+              <div className="p-3 bg-amber-100 rounded-full border border-amber-200">
+                <Coins className="w-8 h-8 text-amber-600" />
               </div>
               <div>
-                <p className="text-indigo-200 text-xs uppercase font-bold tracking-wider">Points / Coins</p>
-                <p className="text-3xl font-bold text-white">{points.toLocaleString()}</p>
+                <p className="text-slate-500 text-xs uppercase font-bold tracking-wider">Points / Coins</p>
+                <p className="text-3xl font-bold text-slate-800">{points.toLocaleString()}</p>
               </div>
             </div>
 
-            <div className="bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/10 w-full md:w-auto flex flex-col sm:flex-row gap-3 items-center">
-              <div className="flex items-center gap-2 text-slate-200">
+            <div className="bg-stone-50 p-4 rounded-xl border border-slate-200 w-full md:w-auto flex flex-col sm:flex-row gap-3 items-center">
+              <div className="flex items-center gap-2 text-slate-700">
                 <Ticket className="w-4 h-4 text-amber-400" />
                 <span className="text-sm font-medium">优惠码</span>
               </div>
@@ -121,7 +121,7 @@ const SubscriptionPage = () => {
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
                 placeholder="PROMO2026"
-                className="w-56 bg-slate-800 border-slate-600 text-white"
+                className="w-56 bg-white border-slate-200 text-slate-800"
               />
             </div>
           </div>
@@ -130,7 +130,7 @@ const SubscriptionPage = () => {
 
       <div className="container mx-auto px-4 py-12 text-center">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">订阅开通</h1>
-        <p className="text-slate-400 max-w-2xl mx-auto">
+        <p className="text-slate-600 max-w-2xl mx-auto">
           开通订阅后可直接阅读付费章节；支付密钥可先留空，后续补充后即可切换到真实支付。
         </p>
       </div>
@@ -147,19 +147,19 @@ const SubscriptionPage = () => {
                 transition={{ delay: index * 0.1 }}
                 className={`
                   relative rounded-2xl p-8 backdrop-blur-sm flex flex-col border shadow-xl transition-all duration-300
-                  ${plan.popular ? 'bg-gradient-to-b from-purple-900/30 to-slate-900 border-purple-500/50 scale-105 z-10' : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'}
+                  ${plan.popular ? 'bg-gradient-to-b from-accent-50 to-white border-accent-400 scale-105 z-10 shadow-lg' : 'bg-white border-slate-200 hover:border-accent-300 shadow-sm'}
                 `}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-purple-900/50">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-600 text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-accent-900/50">
                     MOST POPULAR
                   </div>
                 )}
 
-                <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
+                <h3 className="text-xl font-bold text-slate-800 mb-2">{plan.name}</h3>
                 <div className="mb-6">
                   <div className="flex items-end gap-1">
-                    <span className="text-4xl font-bold text-white">{plan.priceLabel}</span>
+                    <span className="text-4xl font-bold text-slate-800">{plan.priceLabel}</span>
                   </div>
                   {subscription?.expiresAt && (
                     <p className="text-xs text-slate-400 mt-2">
@@ -170,7 +170,7 @@ const SubscriptionPage = () => {
 
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((f, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-slate-300">
+                    <li key={i} className="flex gap-3 text-sm text-slate-600">
                       <Check className="w-4 h-4 text-green-500 shrink-0" /> {f.name}
                     </li>
                   ))}
@@ -179,7 +179,7 @@ const SubscriptionPage = () => {
                 <Button
                   onClick={() => handleSubscribe(plan.id)}
                   disabled={loading || isCurrent}
-                  className={`w-full py-6 font-bold tracking-wide shadow-lg ${plan.popular ? 'bg-purple-600 hover:bg-purple-700 shadow-purple-900/20' : 'bg-slate-800 hover:bg-slate-700'}`}
+                  className={`w-full py-6 font-bold tracking-wide shadow-lg ${plan.popular ? 'bg-accent-600 hover:bg-accent-700 text-white shadow-accent-900/20' : 'bg-stone-200 hover:bg-stone-300 text-slate-800'}`}
                 >
                   {loading ? '处理中...' : isCurrent ? '当前方案' : '立即开通'}
                 </Button>

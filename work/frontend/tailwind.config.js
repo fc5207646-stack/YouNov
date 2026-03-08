@@ -17,6 +17,27 @@ module.exports = {
 		},
 		extend: {
 			colors: {
+				// 页面背景：暖白 / 青白
+				page: {
+					DEFAULT: 'hsl(var(--page-bg))',
+					muted: 'hsl(var(--surface-muted))',
+				},
+				surface: 'hsl(var(--surface))',
+				// 主色：靛蓝，用于按钮、链接
+				accent: {
+					DEFAULT: 'hsl(var(--accent))',
+					foreground: 'hsl(var(--accent-foreground))',
+					50: '#eef2ff',
+					100: '#e0e7ff',
+					200: '#c7d2fe',
+					400: '#a5b4fc',
+					500: '#818cf8',
+					600: '#6366f1',
+					700: '#4f46e5',
+					800: '#4338ca',
+					900: '#3730a3',
+					950: '#1e1b4b',
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -37,10 +58,6 @@ module.exports = {
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
 					foreground: 'hsl(var(--muted-foreground))',
-				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))',
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',

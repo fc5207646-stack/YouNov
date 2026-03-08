@@ -1,0 +1,70 @@
+{
+  "baseDir": "c:\\Users\\Administrator\\Desktop\\网站源码\\younov - 副本",
+  "backupDataDir": "c:\\Users\\Administrator\\Desktop\\网站源码\\younov - 副本\\backup-data",
+  "retainDays": 14,
+  "syncCode": true,
+  "updateWork": false,
+  "sshPrivateKey": "C:\\Users\\Administrator\\.ssh\\id_ed25519",
+  "sshOptions": "-o StrictHostKeyChecking=accept-new",
+  "jump": {
+    "enabled": true,
+    "sshHost": "107.174.174.123",
+    "sshUser": "root"
+  },
+  "code": {
+    "enabled": true,
+    "servers": [
+      {
+        "name": "frontend",
+        "sshHost": "107.174.174.123",
+        "sshUser": "root",
+        "path": "/var/www/younov/dist",
+        "excludes": []
+      },
+      {
+        "name": "backend-1",
+        "sshHost": "10.50.0.2",
+        "sshUser": "root",
+        "path": "/opt/younov/api",
+        "excludes": ["node_modules", ".env"]
+      },
+      {
+        "name": "backend-2",
+        "sshHost": "10.50.0.3",
+        "sshUser": "root",
+        "path": "/opt/younov/api",
+        "excludes": ["node_modules", ".env"]
+      }
+    ]
+  },
+  "pg": {
+    "enabled": true,
+    "targets": [
+      {
+        "name": "primary_db",
+        "sshHost": "10.50.0.4",
+        "sshUser": "root",
+        "dbName": "younov",
+        "method": "sudo_postgres_socket"
+      },
+      {
+        "name": "replica_db",
+        "sshHost": "10.50.0.5",
+        "sshUser": "root",
+        "dbName": "younov",
+        "method": "sudo_postgres_socket"
+      }
+    ]
+  },
+  "redis": {
+    "enabled": true,
+    "targets": [
+      {
+        "name": "cache",
+        "sshHost": "10.50.0.6",
+        "sshUser": "root",
+        "password": ""
+      }
+    ]
+  }
+}

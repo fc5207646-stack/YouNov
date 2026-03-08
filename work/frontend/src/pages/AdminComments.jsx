@@ -60,7 +60,7 @@ const AdminComments = () => {
         <div className="space-y-4">
           {loading ? (
             <div className="text-center py-20">
-               <div className="animate-spin w-8 h-8 border-t-2 border-purple-500 rounded-full mx-auto mb-4"></div>
+               <div className="animate-spin w-8 h-8 border-t-2 border-accent-500 rounded-full mx-auto mb-4"></div>
                <p className="text-slate-500">Loading comments...</p>
             </div>
           ) : comments.length === 0 ? (
@@ -87,13 +87,13 @@ const AdminComments = () => {
                       <span className="text-slate-600">•</span>
                       <span className="text-slate-500 text-xs">{new Date(comment.createdAt).toLocaleString()}</span>
                       <span className="text-slate-600 hidden sm:inline">•</span>
-                      <div className="flex items-center gap-1 bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded text-xs border border-purple-500/20">
+                      <div className="flex items-center gap-1 bg-accent-500/10 text-accent-400 px-2 py-0.5 rounded text-xs border border-accent-500/20">
                          <span className="font-medium truncate max-w-[150px]">{comment.novel?.title}</span>
-                         <span className="text-purple-600">/</span>
+                         <span className="text-accent-600">/</span>
                          <span>Ch. {comment.chapter?.orderIndex}</span>
                       </div>
                     </div>
-                    <p className="text-slate-300 leading-relaxed text-base pl-1 border-l-2 border-slate-800 group-hover:border-purple-500/50 transition-colors">
+                    <p className="text-slate-300 leading-relaxed text-base pl-1 border-l-2 border-slate-800 group-hover:border-accent-500/50 transition-colors">
                       {comment.content}
                     </p>
                   </div>

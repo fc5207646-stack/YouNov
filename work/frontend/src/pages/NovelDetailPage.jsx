@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -27,6 +27,15 @@ const NovelDetailPage = () => {
   const [subscriptionStatus, setSubscriptionStatus] = useState(null);
   const [ratingSubmitting, setRatingSubmitting] = useState(false);
   const [myRating, setMyRating] = useState(null);
+  const retried404Ref = useRef(false);
+  const retryTimerRef = useRef(null);
+
+  useEffect(() => {
+    retried404Ref.current = false;
+    return () => {
+      if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+    };
+  }, [id]);
 
   useEffect(() => {
     if (!id) return;
@@ -67,8 +76,18 @@ const NovelDetailPage = () => {
         }
       } catch (err) {
         console.error(err);
-        setChapters(prev => (Array.isArray(prev) ? prev : []));
         const status = err?.status;
+        // 404 时自动重试一次（应对 Nginx 轮询到暂无该书的 API 节点）
+        if (status === 404 && !retried404Ref.current) {
+          retried404Ref.current = true;
+          setLoading(false);
+          retryTimerRef.current = setTimeout(() => {
+            retryTimerRef.current = null;
+            fetchData();
+          }, 400);
+          return;
+        }
+        setChapters(prev => (Array.isArray(prev) ? prev : []));
         const isNoResponse = status === 0 || status === undefined;
         const isNetwork = err?.error === "network_error" || err?.message?.includes?.("fetch") || err?.message?.includes?.("Network");
         const msg = status === 404
@@ -126,8 +145,8 @@ const NovelDetailPage = () => {
     }
   };
 
-  if (loading) return <div className="min-h-screen bg-slate-950 pt-20 px-4 text-center"><Loader2 className="w-10 h-10 animate-spin mx-auto text-purple-600"/></div>;
-  if (error || !novel) return <div className="min-h-screen bg-slate-950 pt-20 px-4 text-center text-white"><AlertCircle className="w-10 h-10 mx-auto text-red-500 mb-2"/>{error || "Not found"}</div>;
+  if (loading) return <div className="min-h-screen bg-page pt-20 px-4 text-center"><Loader2 className="w-10 h-10 animate-spin mx-auto text-accent-500"/></div>;
+  if (error || !novel) return <div className="min-h-screen bg-page pt-20 px-4 text-center text-slate-800"><AlertCircle className="w-10 h-10 mx-auto text-red-500 mb-2"/>{error || "Not found"}</div>;
 
   const tagsArray = parseTags(novel.tags);
   const safeChapters = Array.isArray(chapters) ? chapters : [];
@@ -142,30 +161,30 @@ const NovelDetailPage = () => {
     : `${totalWordCount}字`;
 
   return (
-    <div className="min-h-screen bg-slate-950 pb-20 font-sans">
+    <div className="min-h-screen bg-page pb-20 font-sans">
       <Helmet><title>{novel.title}</title></Helmet>
       <Header />
 
-      <div className="relative w-full bg-slate-900 pb-12 pt-24 px-4 overflow-hidden">
-         <div className="absolute inset-0 opacity-20">
+      <div className="relative w-full bg-gradient-to-b from-stone-100 to-page pb-12 pt-24 px-4 overflow-hidden border-b border-slate-200">
+         <div className="absolute inset-0 opacity-30">
            <img src={novel.coverUrl || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1200'} className="w-full h-full object-cover blur-3xl scale-125" alt="" />
          </div>
          <div className="container mx-auto relative z-10 flex flex-col md:flex-row gap-8">
-            <div className="w-48 h-64 mx-auto md:mx-0 shrink-0 shadow-2xl rounded-xl overflow-hidden border border-slate-700">
+            <div className="w-48 h-64 mx-auto md:mx-0 shrink-0 shadow-xl rounded-xl overflow-hidden border border-slate-200 bg-white">
                <img src={novel.coverUrl || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600'} className="w-full h-full object-cover" alt={novel.title} />
             </div>
             <div className="flex-1 text-center md:text-left">
                <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-4">
-                  <Badge variant={novel.status === 'COMPLETED' ? "default" : "outline"} className={novel.status === 'COMPLETED' ? "bg-green-600 hover:bg-green-700 border-none" : "border-purple-500 text-purple-400"}>
+                  <Badge variant={novel.status === 'COMPLETED' ? "default" : "outline"} className={novel.status === 'COMPLETED' ? "bg-green-600 hover:bg-green-700 border-none" : "border-accent-500 text-accent-400"}>
                     {novel.status === 'COMPLETED' ? '已完结' : '连载中'}
                   </Badge>
                   {safeMap(tagsToShow, (t) => (
-                    <Badge key={t} variant="outline" className="border-slate-700 text-slate-300 bg-slate-900/40">{t}</Badge>
+                    <Badge key={t} variant="outline" className="border-slate-200 text-slate-600 bg-white/80">{t}</Badge>
                   ))}
                </div>
-               <h1 className="text-4xl font-extrabold text-white mb-4">{novel.title}</h1>
-               <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-slate-400 mb-6">
-                  <span className="text-white font-medium">{novel.authorName}</span>
+               <h1 className="text-4xl font-extrabold text-slate-800 mb-4">{novel.title}</h1>
+               <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-slate-600 mb-6">
+                  <span className="text-slate-800 font-medium">{novel.authorName}</span>
                   <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> Updated {new Date(novel.updatedAt).toLocaleDateString()}</span>
                   <span className="flex items-center gap-1">
                     <Star className="w-4 h-4 text-yellow-500" />
@@ -179,10 +198,10 @@ const NovelDetailPage = () => {
                   </div>
                </div>
                <div className="flex justify-center md:justify-start gap-4 mb-8">
-                  <Button onClick={handleStartReading} size="lg" className="rounded-full px-8 bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-900/30">
+                  <Button onClick={handleStartReading} size="lg" className="rounded-full px-8 bg-accent-600 hover:bg-accent-700 shadow-lg shadow-accent-900/30">
                      {startingRead ? <Loader2 className="animate-spin" /> : 'Start Reading'}
                   </Button>
-                  <Button onClick={handleAddToShelf} size="lg" variant="outline" className={`rounded-full px-8 ${isBookshelf ? 'bg-purple-900/20 border-purple-500 text-purple-400' : ''}`}>
+                  <Button onClick={handleAddToShelf} size="lg" variant="outline" className={`rounded-full px-8 ${isBookshelf ? 'bg-accent-900/20 border-accent-500 text-accent-400' : ''}`}>
                      {isBookshelf ? <><Check className="mr-2 h-4 w-4" /> In Library</> : <><BookmarkPlus className="mr-2 h-4 w-4" /> Add to Library</>}
                   </Button>
                </div>
@@ -193,7 +212,7 @@ const NovelDetailPage = () => {
                      disabled={ratingSubmitting}
                      onClick={() => rate(v)}
                      className={`px-3 py-1 rounded-full text-sm border transition ${
-                       (myRating || 0) >= v ? 'bg-yellow-500/20 border-yellow-500/30 text-yellow-300' : 'bg-slate-900/30 border-slate-700 text-slate-300 hover:border-yellow-500/30'
+                       (myRating || 0) >= v ? 'bg-amber-100 border-amber-400/50 text-amber-800' : 'bg-stone-100 border-slate-200 text-slate-600 hover:border-amber-400/50'
                      }`}
                      title="点击评分"
                    >
@@ -201,25 +220,25 @@ const NovelDetailPage = () => {
                    </button>
                  ))}
                </div>
-               <p className="text-slate-300 leading-relaxed max-w-3xl">{novel.description}</p>
+               <p className="text-slate-600 leading-relaxed max-w-3xl">{novel.description}</p>
             </div>
          </div>
       </div>
 
       <div className="container mx-auto px-4 mt-12 max-w-5xl">
-         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2 border-b border-slate-800 pb-4">
-            <BookOpen className="text-purple-500"/> Chapters <span className="text-sm font-normal text-slate-500 ml-auto">{safeChapters.length} total</span>
+         <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2 border-b border-slate-200 pb-4">
+            <BookOpen className="text-accent-500"/> Chapters <span className="text-sm font-normal text-slate-500 ml-auto">{safeChapters.length} total</span>
          </h2>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {safeMap(safeChapters, (c) => (
-               <Link key={c.id} to={`/novel/${id}/chapter/${c.id}`} className="flex items-center justify-between p-4 bg-slate-900/50 border border-slate-800 rounded-lg hover:bg-slate-800 hover:border-purple-500/30 transition-all group">
+               <Link key={c.id} to={`/novel/${id}/chapter/${c.id}`} className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg hover:bg-stone-50 hover:border-accent-400/50 transition-all group shadow-sm">
                   <div className="flex items-center gap-3 overflow-hidden">
                      <span className="text-slate-500 text-xs w-8">#{c.orderIndex}</span>
-                     <span className="text-slate-300 font-medium truncate group-hover:text-white">{c.title}</span>
+                     <span className="text-slate-700 font-medium truncate group-hover:text-accent-600">{c.title}</span>
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                      {c.isFree ? (
-                       <span className="text-[10px] bg-slate-800 px-1 rounded text-slate-400">FREE</span>
+                       <span className="text-[10px] bg-green-100 px-1.5 rounded text-green-700">FREE</span>
                      ) : subscriptionStatus ? (
                        <Unlock className="w-4 h-4 text-green-500" />
                      ) : (

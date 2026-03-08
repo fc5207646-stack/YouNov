@@ -52,17 +52,17 @@ const AdminLayout = ({ children }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 flex">
+    <div className="min-h-screen bg-page flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col fixed h-full z-20">
-        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800">
-          <Link to="/" className="flex items-center gap-2 text-white hover:text-purple-400 transition-colors">
+      <aside className="w-64 bg-white border-r border-slate-200 flex flex-col fixed h-full z-20 shadow-sm">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200">
+          <Link to="/" className="flex items-center gap-2 text-slate-800 hover:text-accent-600 transition-colors">
             <Home className="w-5 h-5" />
             <span className="font-semibold text-lg">Home</span>
           </Link>
           <div className="flex items-center gap-2">
-            <ShieldAlert className="w-6 h-6 text-purple-500" />
-            <span className="text-lg font-bold text-white">Admin</span>
+            <ShieldAlert className="w-6 h-6 text-accent-500" />
+            <span className="text-lg font-bold text-slate-800">Admin</span>
           </div>
         </div>
 
@@ -74,10 +74,10 @@ const AdminLayout = ({ children }) => {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                 location.pathname.startsWith(item.path) && item.path !== "/admin"
-                  ? "bg-purple-600 text-white shadow-lg shadow-purple-900/20"
+                  ? "bg-accent-600 text-white shadow-lg shadow-accent-900/20"
                   : location.pathname === item.path
-                    ? "bg-purple-600 text-white shadow-lg shadow-purple-900/20"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800"
+                    ? "bg-accent-600 text-white shadow-lg shadow-accent-900/20"
+                    : "text-slate-600 hover:text-slate-800 hover:bg-stone-100"
               )}
             >
               <item.icon className="w-4 h-4" />
@@ -86,7 +86,7 @@ const AdminLayout = ({ children }) => {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-slate-200">
           <Button 
             variant="ghost" 
             className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-900/10"
@@ -102,7 +102,7 @@ const AdminLayout = ({ children }) => {
       <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen relative">
         {children}
         <div className="fixed bottom-4 right-8 text-xs text-slate-600 pointer-events-none flex flex-col items-end gap-1 bg-white/80 p-2 rounded shadow backdrop-blur-sm z-50">
-          <span className="font-bold text-purple-600">App: V11</span>
+          <span className="font-bold text-accent-600">App: V11</span>
           <span>API: {backendVersion}</span>
         </div>
       </main>

@@ -40,7 +40,7 @@ const BrowsePage = () => {
   }, [fetchNovels]);
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-page">
       <Helmet>
         <title>YouNov - Browse Novels | 尤诺夫·小说阅读平台</title>
         <meta name="description" content="Browse and discover thousands of online novels and web stories across all genres on YouNov." />
@@ -51,9 +51,9 @@ const BrowsePage = () => {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Sidebar Filters */}
           <div className="w-full md:w-64 flex-shrink-0 space-y-6">
-            <div className="bg-slate-900 p-6 rounded-xl border border-slate-800">
-              <h3 className="font-semibold text-white mb-1 flex items-center gap-2">
-                <Filter className="w-4 h-4 text-purple-500" /> Category
+            <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+              <h3 className="font-semibold text-slate-800 mb-1 flex items-center gap-2">
+                <Filter className="w-4 h-4 text-accent-500" /> Category
               </h3>
               <p className="text-xs text-slate-500 mb-4">Filter by keyword tags from novel detail page</p>
               <div className="space-y-2">
@@ -84,7 +84,7 @@ const BrowsePage = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <Input 
                 placeholder="Search by title..." 
-                className="pl-10 h-12 bg-slate-900 border-slate-800 text-lg"
+                className="pl-10 h-12 bg-white border-slate-200 text-slate-800 text-lg"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -92,7 +92,7 @@ const BrowsePage = () => {
 
             {loading ? (
                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                 {[1,2,3,4].map(i => <div key={i} className="h-64 bg-slate-900 rounded-xl animate-pulse" />)}
+                 {[1,2,3,4].map(i => <div key={i} className="h-64 bg-stone-100 rounded-xl animate-pulse" />)}
                </div>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -103,7 +103,7 @@ const BrowsePage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.05 }}
                   >
-                    <Link to={`/novel/${novel.slug}`} className="group block h-full bg-slate-900 rounded-xl overflow-hidden border border-slate-800 hover:border-purple-500/50 transition-all hover:shadow-2xl hover:shadow-purple-900/10">
+                    <Link to={`/novel/${novel.slug}`} className="group block h-full bg-white rounded-xl overflow-hidden border border-slate-200 shadow-sm hover:border-accent-400 hover:shadow-lg transition-all">
                       <div className="relative aspect-[2/3] overflow-hidden">
                         <img
                           src={novel.coverUrl || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600'}
@@ -118,11 +118,11 @@ const BrowsePage = () => {
                         </div>
                       </div>
                       <div className="p-4">
-                        <h3 className="font-bold text-white mb-1 truncate">{novel.title}</h3>
-                        <p className="text-sm text-slate-400 truncate">{novel.authorName}</p>
+                        <h3 className="font-bold text-slate-800 mb-1 truncate">{novel.title}</h3>
+                        <p className="text-sm text-slate-600 truncate">{novel.authorName}</p>
                         <div className="mt-3 flex flex-wrap gap-2">
                           {parseTags(novel.tags).slice(0, 2).map(tag => (
-                             <Badge key={tag} variant="outline" className="border-slate-700 text-xs text-slate-500">{tag}</Badge>
+                             <Badge key={tag} variant="outline" className="border-slate-200 text-xs text-slate-500">{tag}</Badge>
                           ))}
                         </div>
                       </div>

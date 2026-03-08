@@ -26,24 +26,24 @@ const LeaderboardPage = () => {
   }, []);
 
   const RankItem = ({ novel, index, metric, icon: Icon }) => (
-    <Link to={`/novel/${novel.slug}`} className="flex items-center gap-4 p-4 bg-slate-900 rounded-xl border border-slate-800 hover:bg-slate-800 transition-colors mb-4 group">
-      <div className={`w-8 h-8 flex items-center justify-center font-bold text-lg rounded-full ${index < 3 ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-black' : 'text-slate-500 bg-slate-800'}`}>
+    <Link to={`/novel/${novel.slug}`} className="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-200 hover:bg-stone-50 transition-colors mb-4 group shadow-sm">
+      <div className={`w-8 h-8 flex items-center justify-center font-bold text-lg rounded-full ${index < 3 ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-black' : 'text-slate-500 bg-stone-100'}`}>
         {index + 1}
       </div>
       <img src={novel.coverUrl || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300'} alt={novel.title} className="w-12 h-16 object-cover rounded shadow-md" />
       <div className="flex-1">
-        <h3 className="font-bold text-white group-hover:text-purple-400 transition-colors">{novel.title}</h3>
-        <p className="text-sm text-slate-400">{novel.authorName}</p>
+        <h3 className="font-bold text-slate-800 group-hover:text-accent-600 transition-colors">{novel.title}</h3>
+        <p className="text-sm text-slate-600">{novel.authorName}</p>
       </div>
-      <div className="flex items-center gap-2 text-slate-300">
-        <Icon className="w-4 h-4 text-purple-500" />
+      <div className="flex items-center gap-2 text-slate-600">
+        <Icon className="w-4 h-4 text-accent-500" />
         <span className="font-mono font-bold">{metric}</span>
       </div>
     </Link>
   );
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-page">
       <Helmet>
         <title>YouNov - Leaderboard | 尤诺夫·小说阅读平台</title>
         <meta name="description" content="Discover the most popular and highest-rated novels on YouNov. See what readers are loving right now." />
@@ -52,16 +52,16 @@ const LeaderboardPage = () => {
       
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-            <Trophy className="w-10 h-10 text-yellow-500" /> Leaderboard
+          <h1 className="text-4xl font-bold text-slate-800 mb-4 flex items-center justify-center gap-3">
+            <Trophy className="w-10 h-10 text-amber-500" /> Leaderboard
           </h1>
-          <p className="text-slate-400">The most popular novels on YouNov</p>
+          <p className="text-slate-600">The most popular novels on YouNov</p>
         </div>
 
         <Tabs defaultValue="views" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-slate-900 mb-8">
-            <TabsTrigger value="views" className="data-[state=active]:bg-purple-600">Most Read</TabsTrigger>
-            <TabsTrigger value="rating" className="data-[state=active]:bg-purple-600">Top Rated</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 bg-stone-100 border border-slate-200 mb-8">
+            <TabsTrigger value="views" className="data-[state=active]:bg-accent-600">Most Read</TabsTrigger>
+            <TabsTrigger value="rating" className="data-[state=active]:bg-accent-600">Top Rated</TabsTrigger>
           </TabsList>
           
           <TabsContent value="views">

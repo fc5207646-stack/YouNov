@@ -127,7 +127,7 @@ const AdminNotifications = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-              <Bell className="w-8 h-8 text-purple-500" />
+              <Bell className="w-8 h-8 text-accent-500" />
               Notifications
               {unreadCount > 0 && (
                 <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full">{unreadCount} New</span>
@@ -136,7 +136,7 @@ const AdminNotifications = () => {
             <p className="text-slate-400 mt-1">Manage system alerts and user messages</p>
           </div>
           <div className="flex items-center gap-2">
-            <Button onClick={() => setCreateOpen(true)} className="bg-purple-600 hover:bg-purple-700 text-white">
+            <Button onClick={() => setCreateOpen(true)} className="bg-accent-600 hover:bg-accent-700 text-white">
               <Plus className="w-4 h-4 mr-2" /> New
             </Button>
             <Button onClick={handleMarkAllRead} variant="outline" className="border-slate-700 hover:bg-slate-800 text-slate-300">
@@ -177,7 +177,7 @@ const AdminNotifications = () => {
               <Button variant="outline" className="border-slate-700 text-slate-300" onClick={() => setCreateOpen(false)}>
                 Cancel
               </Button>
-              <Button onClick={handleCreate} disabled={creating} className="bg-purple-600 hover:bg-purple-700 text-white">
+              <Button onClick={handleCreate} disabled={creating} className="bg-accent-600 hover:bg-accent-700 text-white">
                 {creating ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                 Publish
               </Button>
@@ -210,7 +210,7 @@ const AdminNotifications = () => {
                     exit={{ opacity: 0, x: -10 }}
                     layout
                   >
-                    <Card className={`p-5 border transition-all ${notification.isRead ? 'bg-slate-900 border-slate-800 opacity-70' : 'bg-slate-800 border-purple-500/30 shadow-lg shadow-purple-900/10'}`}>
+                    <Card className={`p-5 border transition-all ${notification.isRead ? 'bg-slate-900 border-slate-800 opacity-70' : 'bg-slate-800 border-accent-500/30 shadow-lg shadow-accent-900/10'}`}>
                       <div className="flex justify-between items-start gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">

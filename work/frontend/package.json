@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node ./node_modules/vite/bin/vite.js --host :: --port 3000",
     "build": "node tools/generate-llms.js || true && node tools/generate-sitemap.js || true && node ./node_modules/vite/bin/vite.js build",
+    "build:server": "node tools/generate-llms.js || true && node tools/generate-sitemap.js || true && node --max-old-space-size=1024 ./node_modules/vite/bin/vite.js build",
     "build:clean": "node tools/clean-dist.cjs && node ./node_modules/vite/bin/vite.js build",
     "verify-build": "node tools/verify-build-version.cjs",
     "lint": "node ./node_modules/eslint/bin/eslint.js . --report-unused-disable-directives --max-warnings 0",

@@ -57,24 +57,24 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-page flex items-center justify-center p-4 relative overflow-hidden">
        {/* Background Decor */}
-       <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[100px] pointer-events-none"></div>
+       <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-accent-900/20 rounded-full blur-[100px] pointer-events-none"></div>
        <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-900/20 rounded-full blur-[100px] pointer-events-none"></div>
 
        <Helmet><title>Register | YouNov</title></Helmet>
        
        <div className="w-full max-w-md relative z-10">
           <div className="text-center mb-8">
-            <Link to="/" className="inline-block text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+            <Link to="/" className="inline-block text-3xl font-bold bg-gradient-to-r from-accent-400 to-pink-400 bg-clip-text text-transparent mb-2">
                YouNov
             </Link>
-            <h1 className="text-white text-xl font-medium">Create Account</h1>
+            <h1 className="text-slate-800 text-xl font-medium">Create Account</h1>
           </div>
 
-          <Card className="bg-slate-900/90 border-slate-800 shadow-2xl backdrop-blur-md">
+          <Card className="bg-white border-slate-200 shadow-xl">
              <CardHeader>
-                <CardTitle className="text-white text-center">
+                <CardTitle className="text-slate-800 text-center">
                    注册账号
                 </CardTitle>
              </CardHeader>
@@ -82,80 +82,80 @@ const RegisterPage = () => {
              <CardContent>
                 <form onSubmit={handleRegister} className="space-y-5">
                   <div className="space-y-2">
-                    <Label className="text-slate-300">Email</Label>
+                    <Label className="text-slate-700">Email</Label>
                     <Input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white"
+                      className="bg-stone-50 border-slate-200 text-slate-800"
                       placeholder="you@example.com"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-slate-300">Display Name</Label>
+                    <Label className="text-slate-700">Display Name</Label>
                     <Input
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white"
+                      className="bg-stone-50 border-slate-200 text-slate-800"
                       placeholder="你的昵称"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-slate-300">Username（可选）</Label>
+                    <Label className="text-slate-700">Username（可选）</Label>
                     <Input
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white"
+                      className="bg-stone-50 border-slate-200 text-slate-800"
                       placeholder="仅字母数字下划线"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-slate-300">Password</Label>
+                    <Label className="text-slate-700">Password</Label>
                     <Input
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white"
+                      className="bg-stone-50 border-slate-200 text-slate-800"
                       placeholder="至少 6 位"
                       required
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-slate-300">Confirm Password</Label>
+                    <Label className="text-slate-700">Confirm Password</Label>
                     <Input
                       type="password"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="bg-slate-800 border-slate-700 text-white"
+                      className="bg-stone-50 border-slate-200 text-slate-800"
                       placeholder="再次输入密码"
                       required
                     />
                   </div>
-                  <div className="space-y-2 pt-2 border-t border-slate-800">
-                    <Label className="text-purple-400 flex items-center gap-2 cursor-pointer">
+                  <div className="space-y-2 pt-2 border-t border-slate-200">
+                    <Label className="text-accent-400 flex items-center gap-2 cursor-pointer">
                       <Gift className="w-4 h-4" /> 邀请码（可选）
                     </Label>
                     <Input
                       value={referralCode}
                       onChange={(e) => setReferralCode(e.target.value)}
-                      className="bg-slate-800/50 border-slate-700 text-purple-300 placeholder:text-slate-600 text-center font-mono tracking-widest uppercase"
+                      className="bg-stone-50 border-slate-200 text-accent-600 placeholder:text-slate-400 text-center font-mono tracking-widest uppercase"
                       placeholder="uabc123"
                     />
                   </div>
                   <Button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-900/20 h-11 text-base font-medium"
+                    className="w-full bg-gradient-to-r from-accent-600 to-pink-600 hover:from-accent-700 hover:to-pink-700 shadow-lg shadow-accent-900/20 h-11 text-base font-medium"
                   >
                     {loading ? <Loader2 className="animate-spin" /> : "完成注册"}
                   </Button>
                 </form>
              </CardContent>
              
-             <CardFooter className="justify-center border-t border-slate-800 pt-4">
+             <CardFooter className="justify-center border-t border-slate-200 pt-4">
                 <span className="text-slate-500 text-sm">
-                   Already have an account? <Link to="/login" className="text-purple-400 hover:underline">Log in</Link>
+                   Already have an account? <Link to="/login" className="text-accent-400 hover:underline">Log in</Link>
                 </span>
              </CardFooter>
           </Card>

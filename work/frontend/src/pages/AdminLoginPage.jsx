@@ -69,24 +69,24 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-page flex items-center justify-center p-4">
       <Helmet>
         <title>YouNov - Admin Login</title>
         <meta name="description" content="Administrative access only" />
       </Helmet>
       
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-xl p-8 shadow-2xl">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-xl p-8 shadow-xl">
         <div className="flex flex-col items-center mb-8">
-          <div className="bg-purple-900/30 p-4 rounded-full mb-4 ring-1 ring-purple-500/30">
-            <ShieldAlert className="w-10 h-10 text-purple-500" />
+          <div className="bg-accent-50 p-4 rounded-full mb-4 ring-1 ring-accent-200">
+            <ShieldAlert className="w-10 h-10 text-accent-500" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Admin Portal</h1>
-          <p className="text-slate-400 text-sm mt-2">Secure access area</p>
+          <h1 className="text-2xl font-bold text-slate-800">Admin Portal</h1>
+          <p className="text-slate-600 text-sm mt-2">Secure access area</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-slate-300">Email Address</Label>
+            <Label htmlFor="email" className="text-slate-700">Email Address</Label>
             <div className="relative">
               <Input
                 id="email"
@@ -94,7 +94,7 @@ const AdminLoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-slate-800 border-slate-700 pl-10 text-white placeholder:text-slate-500 focus:border-purple-500 h-11"
+                className="bg-stone-50 border-slate-200 pl-10 text-slate-800 placeholder:text-slate-400 focus:border-accent-500 h-11"
                 placeholder="admin@example.com"
               />
               <ShieldAlert className="w-4 h-4 text-slate-500 absolute left-3 top-3.5" />
@@ -102,7 +102,7 @@ const AdminLoginPage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-slate-300">Password</Label>
+            <Label htmlFor="password" className="text-slate-700">Password</Label>
             <div className="relative">
               <Input
                 id="password"
@@ -110,7 +110,7 @@ const AdminLoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-slate-800 border-slate-700 pl-10 text-white placeholder:text-slate-500 focus:border-purple-500 h-11"
+                className="bg-stone-50 border-slate-200 pl-10 text-slate-800 placeholder:text-slate-400 focus:border-accent-500 h-11"
                 placeholder="••••••••"
               />
               <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-3.5" />
@@ -119,14 +119,14 @@ const AdminLoginPage = () => {
 
           <Button 
             type="submit" 
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 h-11 transition-all hover:scale-[1.01] active:scale-[0.99]"
+            className="w-full bg-accent-600 hover:bg-accent-700 text-white font-medium py-2.5 h-11 transition-all hover:scale-[1.01] active:scale-[0.99]"
             disabled={loading}
           >
             {loading ? <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Verifying...</> : "Access Dashboard"}
           </Button>
 
-          <div className="text-center mt-6 pt-4 border-t border-slate-800">
-             <Link to="/login" className="text-xs text-slate-500 hover:text-purple-400 transition-colors">
+          <div className="text-center mt-6 pt-4 border-t border-slate-200">
+             <Link to="/login" className="text-xs text-slate-500 hover:text-accent-400 transition-colors">
                &larr; Return to regular login
              </Link>
           </div>

@@ -80,7 +80,7 @@ const AdminUsers = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input 
               placeholder="Search by email / name / username..." 
-              className="pl-10 bg-slate-900 border-slate-800 text-white h-11 focus:border-purple-500 rounded-full shadow-lg"
+              className="pl-10 bg-slate-900 border-slate-800 text-white h-11 focus:border-accent-500 rounded-full shadow-lg"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -116,7 +116,7 @@ const AdminUsers = () => {
                       <td className="px-8 py-5">
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-2 text-white font-medium text-base">
-                             <Mail className="w-3.5 h-3.5 text-purple-400" />
+                             <Mail className="w-3.5 h-3.5 text-accent-400" />
                              {user.email || 'Unknown User'}
                           </div>
                           <span className="text-xs text-slate-400">{user.displayName}{user.username ? ` (@${user.username})` : ''}</span>
@@ -125,7 +125,7 @@ const AdminUsers = () => {
                       </td>
                       <td className="px-6 py-5">
                         {user.role === 'ADMIN' ? (
-                          <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/20 hover:bg-purple-500/30">Admin</Badge>
+                          <Badge className="bg-accent-500/20 text-accent-400 border-accent-500/20 hover:bg-accent-500/30">Admin</Badge>
                         ) : (
                           <span className="text-slate-500 bg-slate-800/50 px-2 py-1 rounded text-xs">User</span>
                         )}

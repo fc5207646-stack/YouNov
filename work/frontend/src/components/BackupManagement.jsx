@@ -117,7 +117,7 @@ const BackupManagement = () => {
     <Card className="bg-slate-900 border-slate-800 text-white">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Database className="w-5 h-5 text-purple-500" />
+          <Database className="w-5 h-5 text-accent-500" />
           Database Backup
         </CardTitle>
         <CardDescription className="text-slate-400">
@@ -148,7 +148,7 @@ const BackupManagement = () => {
              ) : backupInfo ? (
                <div className="space-y-3">
                  <div className="flex items-center gap-3">
-                    <Clock className="w-4 h-4 text-purple-400" />
+                    <Clock className="w-4 h-4 text-accent-400" />
                     <span className="text-lg font-mono">
                       {new Date(backupInfo.lastBackupAt).toLocaleString()}
                     </span>
@@ -180,7 +180,7 @@ const BackupManagement = () => {
           </div>
           <div className="space-y-4">
             <div>
-              <label htmlFor="backup-upload" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer">
+              <label htmlFor="backup-upload" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-600 file:text-white hover:file:bg-accent-700 cursor-pointer">
                 <input
                   type="file"
                   id="backup-upload"
@@ -230,7 +230,7 @@ const BackupManagement = () => {
           <Button 
             onClick={handleManualBackup} 
             disabled={backuping}
-            className="bg-purple-600 hover:bg-purple-700 text-white"
+            className="bg-accent-600 hover:bg-accent-700 text-white"
           >
             {backuping ? (
                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Backing up...</>

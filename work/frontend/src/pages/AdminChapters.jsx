@@ -191,7 +191,7 @@ const AdminChapters = () => {
             <h1 className="text-3xl font-bold text-white mb-2">章节管理</h1>
             <p className="text-slate-400">小说：<span className="font-mono">{novelId}</span></p>
             <div className="mt-2 flex gap-4 text-sm">
-              <Link to={`/admin/novels/${novelId}`} className="text-purple-400 hover:text-purple-300">返回小说</Link>
+              <Link to={`/admin/novels/${novelId}`} className="text-accent-400 hover:text-accent-300">返回小说</Link>
               <Link to={`/novel/${novelId}`} className="text-slate-400 hover:text-slate-200">前台查看</Link>
             </div>
           </div>
@@ -203,7 +203,7 @@ const AdminChapters = () => {
               if (!open) setEditingChapter(null);
             }}>
               <DialogTrigger asChild>
-                <Button className="bg-purple-600 hover:bg-purple-700" onClick={openCreateDialog}>
+                <Button className="bg-accent-600 hover:bg-accent-700" onClick={openCreateDialog}>
                   <Plus className="w-4 h-4 mr-2" /> 新建章节
                 </Button>
               </DialogTrigger>
@@ -243,7 +243,7 @@ const AdminChapters = () => {
                         <span>付费章节</span>
                       </label>
                     </div>
-                    <Button type="submit" disabled={submitting} className="bg-purple-600 hover:bg-purple-700">
+                    <Button type="submit" disabled={submitting} className="bg-accent-600 hover:bg-accent-700">
                       {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Save className="w-4 h-4 mr-2" /><span>{editingChapter ? '保存' : '创建'}</span></>}
                     </Button>
                   </div>

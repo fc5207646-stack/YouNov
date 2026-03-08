@@ -20,9 +20,9 @@ const OptimizedImage = ({ src, alt, className, priority = false }) => {
   const effectiveSrc = (src && !error) ? src : DEFAULT_COVER;
 
   return (
-    <div className={`relative overflow-hidden bg-slate-800 ${className}`}>
+    <div className={`relative overflow-hidden bg-stone-200 ${className}`}>
       {!loaded && (
-        <div className="absolute inset-0 bg-slate-700 animate-pulse z-10" />
+        <div className="absolute inset-0 bg-stone-100 animate-pulse z-10" />
       )}
       <img
         src={effectiveSrc}
@@ -60,13 +60,10 @@ const HomePage = () => {
     try {
       const lb = await apiFetch('/leaderboard');
       const normalized = normalizeLeaderboard(lb);
-      if (normalized) {
+      if (normalized && (normalized.mostRead.length > 0 || normalized.topRated.length > 0)) {
         setTrendingNovels(normalized.mostRead.slice(0, 12));
         setFeaturedNovels(normalized.topRated.slice(0, 6));
         loaded = true;
-      }
-      if (!loaded) {
-        throw new Error('invalid_leaderboard_response');
       }
     } catch (err) {
       console.error("Home load error:", err);
@@ -76,37 +73,41 @@ const HomePage = () => {
       try {
         const fallback = await apiFetch('/novels?take=18&skip=0');
         const items = Array.isArray(fallback?.items) ? fallback.items : [];
-        setTrendingNovels(items.slice(6, 18));
-        setFeaturedNovels(items.slice(0, 6));
-        loaded = true;
+        if (items.length > 0) {
+          setTrendingNovels(items.slice(6, 18));
+          setFeaturedNovels(items.slice(0, 6));
+          loaded = true;
+        }
       } catch (err) {
         console.error("Home fallback error:", err);
-        setError("Failed to load content. Please check your network or try again later.");
       }
+      if (!loaded) setError("Failed to load content. Please check your network or try again later.");
     }
     setLoading(false);
   };
 
   useEffect(() => {
     fetchNovels();
+    const retryTimer = setTimeout(fetchNovels, 2200);
+    return () => clearTimeout(retryTimer);
   }, [user]);
 
   return (
-    <div className="min-h-screen bg-slate-950 relative">
+    <div className="min-h-screen bg-page relative">
       <Helmet><title>YouNov - Home</title></Helmet>
       <Header />
 
-      <section className="relative pt-32 pb-24 md:pt-36 md:pb-28 px-4 overflow-hidden border-b border-slate-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/30 via-slate-950 to-slate-950">
+      <section className="relative pt-32 pb-24 md:pt-36 md:pb-28 px-4 overflow-hidden border-b border-slate-200 bg-gradient-to-b from-amber-50/60 to-transparent">
         <div className="container mx-auto relative z-10 text-center max-w-4xl">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
-                <h1 className="text-5xl md:text-7xl font-bold leading-[1.14] md:leading-[1.10] pb-2 mb-8 bg-gradient-to-br from-white via-purple-100 to-purple-400 bg-clip-text text-transparent">
+                <h1 className="text-5xl md:text-7xl font-bold leading-[1.14] md:leading-[1.10] pb-2 mb-8 text-slate-800">
                   Stories That Ignite
                 </h1>
-                <p className="text-lg md:text-xl leading-snug text-slate-400 mt-1 mb-8">
+                <p className="text-lg md:text-xl leading-snug text-slate-600 mt-1 mb-8">
                   Dive into endless possibilities.
                 </p>
                 <div className="flex justify-center gap-4">
-                    <Link to="/browse"><Button size="lg" className="bg-purple-600 hover:bg-purple-700 h-14 px-8 text-lg rounded-full">Start Reading</Button></Link>
+                    <Link to="/browse"><Button size="lg" className="bg-accent-600 hover:bg-accent-700 h-14 px-8 text-lg rounded-full shadow-lg shadow-accent-900/25">Start Reading</Button></Link>
                     <Link to="/subscription"><Button size="lg" variant="outline" className="h-14 px-8 text-lg rounded-full">Get Premium</Button></Link>
                 </div>
             </motion.div>
@@ -116,7 +117,7 @@ const HomePage = () => {
       {error && (
         <div className="text-center py-10 flex flex-col items-center">
             <AlertCircle className="w-10 h-10 text-red-500 mb-2" />
-            <span className="text-red-400">{error}</span>
+            <span className="text-red-600">{error}</span>
             <Button onClick={fetchNovels} variant="outline" className="mt-4">Retry</Button>
         </div>
       )}
@@ -124,15 +125,15 @@ const HomePage = () => {
       {!loading && !error && (
         <>
             {/* Featured */}
-            <section className="py-16 px-4 bg-slate-900/30">
+            <section className="py-16 px-4 bg-page-muted/50">
                 <div className="container mx-auto">
-                    <div className="flex items-center justify-between mb-8"><h2 className="text-3xl font-bold text-white flex gap-2"><Star className="text-yellow-500" /> Featured</h2><Link to="/browse" className="text-purple-400">More</Link></div>
+                    <div className="flex items-center justify-between mb-8"><h2 className="text-3xl font-bold text-slate-800 flex gap-2"><Star className="text-amber-500" /> Featured</h2><Link to="/browse" className="text-accent-400 hover:text-accent-300 transition-colors">More</Link></div>
                     {(Array.isArray(featuredNovels) && featuredNovels.length > 0) ? (
                     <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6">
                         {featuredNovels.map((novel, i) => (
                             <motion.div key={novel.id} initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{delay: i*0.1}}>
                                 <Link to={`/novel/${novel.slug}`} className="group block">
-                                    <div className="aspect-[2/3] rounded-xl overflow-hidden mb-3 relative bg-slate-800 border border-slate-800 group-hover:border-purple-500/50 transition-all">
+                                    <div className="aspect-[2/3] rounded-xl overflow-hidden mb-3 relative bg-white border border-slate-200 shadow-sm group-hover:border-accent-400 group-hover:shadow-md transition-all">
                                         <OptimizedImage 
                                           src={novel.coverUrl} 
                                           alt={novel.title} 
@@ -143,13 +144,13 @@ const HomePage = () => {
                                             <Badge className="bg-yellow-500/90 text-black font-bold text-xs px-1.5 py-0.5 shadow-sm">#{i + 1}</Badge>
                                         </div>
                                     </div>
-                                    <h3 className="text-white font-medium truncate group-hover:text-purple-400 text-center text-sm">{novel.title}</h3>
+                                    <h3 className="text-slate-800 font-medium truncate group-hover:text-accent-600 text-center text-sm">{novel.title}</h3>
                                 </Link>
                             </motion.div>
                         ))}
                     </div>
                     ) : (
-                    <div className="text-center py-12 text-slate-400">
+                    <div className="text-center py-12 text-slate-600">
                       <p className="mb-2">No featured content yet. Content will show here once novels are added.</p>
                       <div className="flex justify-center gap-3 mt-4">
                         <Button variant="outline" onClick={fetchNovels}>Retry</Button>
@@ -163,12 +164,12 @@ const HomePage = () => {
             {/* Trending */}
             <section className="py-16 px-4">
                 <div className="container mx-auto">
-                    <div className="flex items-center justify-between mb-8"><h2 className="text-3xl font-bold text-white flex gap-2"><TrendingUp className="text-pink-500" /> Trending</h2><Link to="/browse" className="text-purple-400">More</Link></div>
+                    <div className="flex items-center justify-between mb-8"><h2 className="text-3xl font-bold text-slate-800 flex gap-2"><TrendingUp className="text-rose-500" /> Trending</h2><Link to="/browse" className="text-accent-400 hover:text-accent-300 transition-colors">More</Link></div>
                     {(Array.isArray(trendingNovels) && trendingNovels.length > 0) ? (
                     <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6">
                         {trendingNovels.map((novel, i) => (
                             <Link key={novel.id} to={`/novel/${novel.slug}`} className="group">
-                                <div className="aspect-[2/3] rounded-xl overflow-hidden mb-3 relative bg-slate-800">
+                                <div className="aspect-[2/3] rounded-xl overflow-hidden mb-3 relative bg-white border border-slate-200 shadow-sm">
                                     <OptimizedImage 
                                       src={novel.coverUrl} 
                                       alt={novel.title} 
@@ -176,12 +177,12 @@ const HomePage = () => {
                                       priority={i < 6}
                                     />
                                 </div>
-                                <h3 className="text-white font-medium truncate group-hover:text-purple-400 text-center text-sm">{novel.title}</h3>
+                                <h3 className="text-slate-800 font-medium truncate group-hover:text-accent-600 text-center text-sm">{novel.title}</h3>
                             </Link>
                         ))}
                     </div>
                     ) : (
-                    <div className="text-center py-12 text-slate-400">
+                    <div className="text-center py-12 text-slate-600">
                       <p className="mb-2">No trending content yet. Content will show here once novels are added.</p>
                       <div className="flex justify-center gap-3 mt-4">
                         <Button variant="outline" onClick={fetchNovels}>Retry</Button>

@@ -83,7 +83,7 @@ const AdminSettings = () => {
       <AdminLayout>
         <div className="flex h-[80vh] items-center justify-center">
            <div className="flex flex-col items-center">
-             <Loader2 className="w-10 h-10 animate-spin text-purple-500 mb-4" />
+             <Loader2 className="w-10 h-10 animate-spin text-accent-500 mb-4" />
              <p className="text-slate-500">Loading configuration...</p>
            </div>
         </div>
@@ -107,16 +107,16 @@ const AdminSettings = () => {
 
         <Tabs defaultValue="seo" className="w-full">
           <TabsList className="bg-slate-900 border border-slate-800 p-1 mb-10 rounded-xl h-auto w-full md:w-auto grid grid-cols-2 md:inline-flex">
-            <TabsTrigger value="seo" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
+            <TabsTrigger value="seo" className="data-[state=active]:bg-accent-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
               <Search className="w-4 h-4" /> SEO & Meta
             </TabsTrigger>
-            <TabsTrigger value="general" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
+            <TabsTrigger value="general" className="data-[state=active]:bg-accent-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
               <Globe className="w-4 h-4" /> General
             </TabsTrigger>
-            <TabsTrigger value="backup" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
+            <TabsTrigger value="backup" className="data-[state=active]:bg-accent-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
               <Database className="w-4 h-4" /> Backup
             </TabsTrigger>
-            <TabsTrigger value="payment" className="data-[state=active]:bg-purple-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
+            <TabsTrigger value="payment" className="data-[state=active]:bg-accent-600 data-[state=active]:text-white rounded-lg px-6 py-2.5 gap-2 transition-all">
               <CreditCard className="w-4 h-4" /> Payment
             </TabsTrigger>
           </TabsList>
@@ -129,7 +129,7 @@ const AdminSettings = () => {
             >
                <div className="p-6 border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-800/50 flex justify-between items-center">
                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                   <Search className="w-5 h-5 text-purple-400" />
+                   <Search className="w-5 h-5 text-accent-400" />
                    SEO Configuration
                  </h3>
                </div>
@@ -137,7 +137,7 @@ const AdminSettings = () => {
                <div className="p-8 space-y-6">
                  <div className="grid gap-2">
                     <Label className="text-slate-300">Default Site Title</Label>
-                    <Input value={seoConfig.siteTitle} onChange={e => setSeoConfig({...seoConfig, siteTitle: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-purple-500" />
+                    <Input value={seoConfig.siteTitle} onChange={e => setSeoConfig({...seoConfig, siteTitle: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-accent-500" />
                     <p className="text-xs text-slate-500">Appears in browser tabs and search results.</p>
                  </div>
                  
@@ -146,30 +146,30 @@ const AdminSettings = () => {
                     <Textarea 
                       value={seoConfig.siteDescription} 
                       onChange={e => setSeoConfig({...seoConfig, siteDescription: e.target.value})} 
-                      className="bg-slate-950 border-slate-700 min-h-[100px] focus:border-purple-500"
+                      className="bg-slate-950 border-slate-700 min-h-[100px] focus:border-accent-500"
                     />
                     <p className="text-xs text-slate-500">Recommended length: 150-160 characters.</p>
                  </div>
                  
                  <div className="grid gap-2">
                     <Label className="text-slate-300">Meta Keywords</Label>
-                    <Input value={seoConfig.keywords} onChange={e => setSeoConfig({...seoConfig, keywords: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-purple-500" />
+                    <Input value={seoConfig.keywords} onChange={e => setSeoConfig({...seoConfig, keywords: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-accent-500" />
                     <p className="text-xs text-slate-500">Comma-separated list of keywords.</p>
                  </div>
 
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-800">
                    <div className="grid gap-2">
                       <Label className="text-slate-300">OG Image URL</Label>
-                      <Input value={seoConfig.ogImage} onChange={e => setSeoConfig({...seoConfig, ogImage: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-purple-500" placeholder="https://..." />
+                      <Input value={seoConfig.ogImage} onChange={e => setSeoConfig({...seoConfig, ogImage: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-accent-500" placeholder="https://..." />
                    </div>
                    <div className="grid gap-2">
                       <Label className="text-slate-300">Twitter Handle</Label>
-                      <Input value={seoConfig.twitterHandle} onChange={e => setSeoConfig({...seoConfig, twitterHandle: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-purple-500" />
+                      <Input value={seoConfig.twitterHandle} onChange={e => setSeoConfig({...seoConfig, twitterHandle: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-accent-500" />
                    </div>
                  </div>
 
                  <div className="pt-6">
-                    <Button onClick={handleSaveSEO} className="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-900/20">
+                    <Button onClick={handleSaveSEO} className="w-full md:w-auto bg-accent-600 hover:bg-accent-700 text-white shadow-lg shadow-accent-900/20">
                       <Save className="w-4 h-4 mr-2" /> Save SEO Settings
                     </Button>
                  </div>
@@ -185,7 +185,7 @@ const AdminSettings = () => {
             >
                <div className="p-6 border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-800/50">
                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                   <Globe className="w-5 h-5 text-purple-400" />
+                   <Globe className="w-5 h-5 text-accent-400" />
                    General Configuration
                  </h3>
                </div>
@@ -193,7 +193,7 @@ const AdminSettings = () => {
                <div className="p-8 space-y-6">
                  <div className="grid gap-2">
                     <Label className="text-slate-300">Support Email</Label>
-                    <Input value={generalConfig.contactEmail} onChange={e => setGeneralConfig({...generalConfig, contactEmail: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-purple-500" />
+                    <Input value={generalConfig.contactEmail} onChange={e => setGeneralConfig({...generalConfig, contactEmail: e.target.value})} className="bg-slate-950 border-slate-700 h-11 focus:border-accent-500" />
                  </div>
                  
                  <div className="flex items-center gap-4 p-5 bg-slate-950 rounded-xl border border-slate-800">
@@ -202,7 +202,7 @@ const AdminSettings = () => {
                       id="maintenance"
                       checked={generalConfig.maintenanceMode} 
                       onChange={e => setGeneralConfig({...generalConfig, maintenanceMode: e.target.checked})}
-                      className="w-6 h-6 rounded border-slate-700 bg-slate-800 text-purple-600 focus:ring-purple-500"
+                      className="w-6 h-6 rounded border-slate-700 bg-slate-800 text-accent-600 focus:ring-accent-500"
                     />
                     <div>
                       <Label htmlFor="maintenance" className="text-lg font-medium text-white cursor-pointer block mb-1">Maintenance Mode</Label>
@@ -211,7 +211,7 @@ const AdminSettings = () => {
                  </div>
 
                  <div className="pt-4">
-                    <Button onClick={handleSaveGeneral} className="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-900/20">
+                    <Button onClick={handleSaveGeneral} className="w-full md:w-auto bg-accent-600 hover:bg-accent-700 text-white shadow-lg shadow-accent-900/20">
                       <Save className="w-4 h-4 mr-2" /> Save General Settings
                     </Button>
                  </div>

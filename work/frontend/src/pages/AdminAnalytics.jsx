@@ -58,7 +58,7 @@ const AdminAnalytics = () => {
     return (
       <AdminLayout>
         <div className="flex h-screen items-center justify-center">
-          <Loader2 className="w-10 h-10 animate-spin text-purple-500" />
+          <Loader2 className="w-10 h-10 animate-spin text-accent-500" />
         </div>
       </AdminLayout>
     );

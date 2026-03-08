@@ -57,9 +57,9 @@ const IpChecker = ({ children }) => {
   // Strict Render Gating
   if (status === 'loading') {
     return (
-      <div className="fixed inset-0 bg-slate-950 flex flex-col items-center justify-center z-[9999]">
-        <Loader2 className="w-12 h-12 text-purple-600 animate-spin mb-4" />
-        <p className="text-slate-400 font-medium tracking-wider animate-pulse">VERIFYING CONNECTION...</p>
+      <div className="fixed inset-0 bg-page flex flex-col items-center justify-center z-[9999]">
+        <Loader2 className="w-12 h-12 text-accent-500 animate-spin mb-4" />
+        <p className="text-slate-600 font-medium tracking-wider animate-pulse">VERIFYING CONNECTION...</p>
       </div>
     );
   }

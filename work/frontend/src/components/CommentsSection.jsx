@@ -78,7 +78,7 @@ const CommentsSection = ({ novelId, chapterId }) => {
   };
 
   return (
-    <div className="mt-12 max-w-3xl mx-auto bg-slate-900/50 rounded-xl p-6 border border-slate-800">
+    <div className="mt-12 max-w-3xl mx-auto bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2">
           <MessageSquare className="w-5 h-5 text-slate-400" />
@@ -95,14 +95,14 @@ const CommentsSection = ({ novelId, chapterId }) => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder={user ? '写下你的想法…' : '登录后才能发表评论'}
-          className="bg-slate-950 border-slate-800 text-white min-h-[90px]"
+          className="bg-stone-50 border-slate-200 text-slate-800 min-h-[90px]"
           disabled={!user || submitting}
         />
         <div className="flex items-center justify-between">
           <div className="text-xs text-slate-500">
             章节：<span className="font-mono">{chapterId}</span> · 小说：<span className="font-mono">{novelId}</span>
           </div>
-          <Button onClick={submit} disabled={!canSubmit || submitting} className="bg-purple-600 hover:bg-purple-700">
+          <Button onClick={submit} disabled={!canSubmit || submitting} className="bg-accent-600 hover:bg-accent-700">
             <Send className="w-4 h-4 mr-2" />
             发布
           </Button>
@@ -118,12 +118,12 @@ const CommentsSection = ({ novelId, chapterId }) => {
           {items.map((c) => {
             const mine = user && c.user?.id === user.id;
             return (
-              <div key={c.id} className="bg-slate-950/60 border border-slate-800 rounded-lg p-4">
+              <div key={c.id} className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="text-sm text-slate-200 font-medium">
                       {c.user?.displayName || c.user?.username || '匿名用户'}
-                      {mine ? <span className="ml-2 text-[10px] text-purple-400 border border-purple-500/30 px-1.5 py-0.5 rounded">我的</span> : null}
+                      {mine ? <span className="ml-2 text-[10px] text-accent-400 border border-accent-500/30 px-1.5 py-0.5 rounded">我的</span> : null}
                     </div>
                     <div className="text-xs text-slate-500 mt-1">{new Date(c.createdAt).toLocaleString()}</div>
                   </div>

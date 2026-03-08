@@ -169,7 +169,7 @@ const AdminNovelDetail = () => {
               ) : (
                 <Badge variant="outline" className="border-slate-700 text-slate-400">Draft</Badge>
               )}
-              <Link className="text-purple-400 hover:text-purple-300" to={`/admin/novels/${id}/chapters`}>管理章节</Link>
+              <Link className="text-accent-400 hover:text-accent-300" to={`/admin/novels/${id}/chapters`}>管理章节</Link>
               <Link className="text-slate-400 hover:text-slate-200" to={`/novel/${id}`}>前台查看</Link>
             </div>
           </div>
@@ -258,7 +258,7 @@ const AdminNovelDetail = () => {
                 <input type="checkbox" checked={form.isPublished} onChange={(e) => setForm((p) => ({ ...p, isPublished: e.target.checked }))} />
                 <span>发布</span>
               </label>
-              <Button type="submit" disabled={saving} className="bg-purple-600 hover:bg-purple-700">
+              <Button type="submit" disabled={saving} className="bg-accent-600 hover:bg-accent-700">
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Save className="w-4 h-4 mr-2" /><span>保存</span></>}
               </Button>
             </div>

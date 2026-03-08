@@ -1,0 +1,82 @@
+{
+  "retainDays": 14,
+  "syncCode": true,
+  "updateWork": false,
+  "jump": {
+    "enabled": true,
+    "sshHost": "107.174.174.123",
+    "sshUser": "root",
+    "sshPort": 22
+  },
+  "sshOptions": [
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=2",
+    "-o",
+    "StrictHostKeyChecking=accept-new"
+  ],
+  "sshPrivateKey": "C:\\Users\\Administrator\\.ssh\\id_ed25519",
+  "code": {
+    "enabled": true,
+    "servers": [
+      {
+        "name": "lb",
+        "sshHost": "107.174.174.123",
+        "sshUser": "root",
+        "sshPort": 22,
+        "path": "/var/www/younov",
+        "excludes": [
+          "node_modules",
+          ".git",
+          "logs",
+          ".cache"
+        ],
+        "updateWorkSubdir": "lb"
+      },
+      {
+        "name": "api1",
+        "sshHost": "10.50.0.2",
+        "sshUser": "root",
+        "sshPort": 22,
+        "path": "/opt/younov/api",
+        "excludes": [
+          "node_modules",
+          ".git",
+          "dist",
+          "logs",
+          ".cache"
+        ],
+        "updateWorkSubdir": "api"
+      },
+      {
+        "name": "api2",
+        "sshHost": "10.50.0.3",
+        "sshUser": "root",
+        "sshPort": 22,
+        "path": "/opt/younov/api",
+        "excludes": [
+          "node_modules",
+          ".git",
+          "dist",
+          "logs",
+          ".cache"
+        ],
+        "updateWorkSubdir": "api2",
+        "skipWorkUpdate": true
+      }
+    ]
+  },
+  "pg": {
+    "enabled": false,
+    "targets": []
+  },
+  "redis": {
+    "enabled": false,
+    "targets": []
+  }
+}

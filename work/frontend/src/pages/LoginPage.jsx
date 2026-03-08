@@ -68,7 +68,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-page flex items-center justify-center px-4">
       <Helmet>
         <title>Login | YouNov</title>
       </Helmet>
@@ -80,34 +80,34 @@ const LoginPage = () => {
       >
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 mb-4">
-            <BookOpen className="w-10 h-10 text-purple-500" />
-            <span className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <BookOpen className="w-10 h-10 text-accent-500" />
+            <span className="text-3xl font-bold bg-gradient-to-r from-accent-400 to-pink-400 bg-clip-text text-transparent">
               YouNov
             </span>
           </Link>
-          <h1 className="text-2xl font-bold text-white mb-2">Welcome Back</h1>
-          <p className="text-slate-400">Login to your account</p>
+          <h1 className="text-2xl font-bold text-slate-800 mb-2">Welcome Back</h1>
+          <p className="text-slate-600">Login to your account</p>
         </div>
 
-        <div className="bg-slate-900 rounded-xl p-8 border border-slate-800 shadow-2xl">
+        <div className="bg-white rounded-xl p-8 border border-slate-200 shadow-xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-300">Email or Phone</Label>
+              <Label htmlFor="email" className="text-slate-700">Email or Phone</Label>
               <Input
                 id="email"
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-slate-800 border-slate-700 text-white focus:border-purple-500 h-11"
+                className="bg-stone-50 border-slate-200 text-slate-800 focus:border-accent-500 h-11"
                 placeholder="Enter your email"
               />
             </div>
 
             <div className="space-y-2">
               <div className="flex justify-between">
-                <Label htmlFor="password" className="text-slate-300">Password</Label>
-                <Link to="/forgot-password" className="text-xs text-purple-400 hover:text-purple-300">
+                <Label htmlFor="password" className="text-slate-700">Password</Label>
+                <Link to="/forgot-password" className="text-xs text-accent-400 hover:text-accent-300">
                   Forgot password?
                 </Link>
               </div>
@@ -117,7 +117,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-slate-800 border-slate-700 text-white focus:border-purple-500 h-11"
+                className="bg-stone-50 border-slate-200 text-slate-800 focus:border-accent-500 h-11"
                 placeholder="••••••••"
               />
             </div>
@@ -125,7 +125,7 @@ const LoginPage = () => {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full h-11 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium shadow-lg shadow-purple-900/20"
+              className="w-full h-11 bg-gradient-to-r from-accent-600 to-pink-600 hover:from-accent-500 hover:to-pink-500 text-white font-medium shadow-lg shadow-accent-900/20"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
               {loading ? 'Logging in...' : 'Sign In'}
@@ -133,8 +133,8 @@ const LoginPage = () => {
           </form>
 
           <div className="mt-6 text-center text-sm">
-            <span className="text-slate-400">Don't have an account? </span>
-            <Link to="/register" className="text-purple-400 hover:text-purple-300 font-medium">
+            <span className="text-slate-600">Don't have an account? </span>
+            <Link to="/register" className="text-accent-400 hover:text-accent-300 font-medium">
               Create Account
             </Link>
           </div>

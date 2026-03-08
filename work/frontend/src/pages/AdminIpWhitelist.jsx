@@ -238,7 +238,7 @@ const AdminIpWhitelist = () => {
                       size="sm"
                       onClick={handleUseMyIp}
                       disabled={ipLoading || !currentIp}
-                      className="h-7 text-xs bg-purple-600 hover:bg-purple-700 text-white border-none"
+                      className="h-7 text-xs bg-accent-600 hover:bg-accent-700 text-white border-none"
                     >
                       {ipLoading ? <Loader2 className="w-3 h-3 animate-spin" /> : <CheckCircle2 className="w-3 h-3 mr-1" />}
                       Use My IP
@@ -281,8 +281,8 @@ const AdminIpWhitelist = () => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-500/10 rounded-lg">
-                  <Globe className="w-6 h-6 text-purple-400" />
+                <div className="p-2 bg-accent-500/10 rounded-lg">
+                  <Globe className="w-6 h-6 text-accent-400" />
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-white font-mono">
@@ -328,7 +328,7 @@ const AdminIpWhitelist = () => {
                 <TableRow>
                   <TableCell colSpan={4} className="h-32 text-center text-slate-500">
                     <div className="flex flex-col items-center justify-center gap-2">
-                      <Loader2 className="w-6 h-6 animate-spin text-purple-500" />
+                      <Loader2 className="w-6 h-6 animate-spin text-accent-500" />
                       <p>Loading whitelist entries...</p>
                     </div>
                   </TableCell>

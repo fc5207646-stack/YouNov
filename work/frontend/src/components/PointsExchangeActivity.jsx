@@ -6,7 +6,7 @@ import { Coins, ArrowRight, Zap, CreditCard } from 'lucide-react';
 const PointsExchangeActivity = () => {
   return (
     <div className="grid gap-6 md:grid-cols-2 mb-8">
-      <Card className="bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-indigo-500/30 overflow-hidden relative group">
+      <Card className="bg-gradient-to-br from-indigo-900/50 to-accent-900/50 border-indigo-500/30 overflow-hidden relative group">
         <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
           <Coins className="w-24 h-24" />
         </div>

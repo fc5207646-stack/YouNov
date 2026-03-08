@@ -78,12 +78,12 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-slate-950/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <header className="bg-white/90 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-          <BookOpen className="w-8 h-8 text-purple-500" />
-          <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent hidden md:block">
+          <BookOpen className="w-8 h-8 text-accent-500" />
+          <span className="text-2xl font-bold bg-gradient-to-r from-accent-400 to-pink-400 bg-clip-text text-transparent hidden md:block">
             YouNov
           </span>
         </Link>
@@ -113,7 +113,7 @@ const Header = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input 
               placeholder="Search novels..." 
-              className="pl-10 bg-slate-900/50 border-slate-700 focus:bg-slate-900 transition-all text-white placeholder:text-slate-500"
+              className="pl-10 bg-stone-50 border-slate-200 focus:bg-white transition-all text-slate-800 placeholder:text-slate-400"
               value={searchTerm}
               onChange={(e) => handleSearch(e.target.value)}
               onFocus={() => searchTerm.length > 1 && setShowResults(true)}
@@ -123,12 +123,12 @@ const Header = () => {
           
           {/* Search Results Dropdown */}
           {showResults && (Array.isArray(searchResults) ? searchResults : []).length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-slate-700 rounded-lg shadow-xl overflow-hidden z-50">
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-lg shadow-xl overflow-hidden z-50">
               {safeMap(searchResults, (novel) => (
                 <Link 
                   key={novel.id} 
                   to={`/novel/${novel.slug}`}
-                  className="flex items-center gap-3 p-3 hover:bg-slate-800 transition-colors"
+                  className="flex items-center gap-3 p-3 hover:bg-stone-50 transition-colors text-slate-800"
                 >
                   <img
                     src={novel.coverUrl || 'https://via.placeholder.com/40'}
@@ -155,7 +155,7 @@ const Header = () => {
                   variant="ghost" 
                   size="icon" 
                   onClick={() => navigate('/admin')}
-                  className="text-purple-400 hover:text-purple-300 hover:bg-purple-900/20" 
+                  className="text-accent-400 hover:text-accent-300 hover:bg-accent-900/20" 
                   title="Admin Dashboard"
                 >
                   <ShieldCheck className="w-5 h-5" />
@@ -171,12 +171,12 @@ const Header = () => {
                     )}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-80 bg-slate-900 border-slate-700 text-white">
+                <DropdownMenuContent align="end" className="w-80 bg-white border-slate-200 text-slate-800 shadow-xl">
                   <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-slate-800" />
+                  <DropdownMenuSeparator className="bg-slate-100" />
                   {(Array.isArray(notifications) ? notifications : []).length > 0 ? (
                     safeMap(notifications, (notif) => (
-                      <DropdownMenuItem key={notif.id} className="p-3 focus:bg-slate-800">
+                      <DropdownMenuItem key={notif.id} className="p-3 focus:bg-stone-50 text-slate-800">
                         <div className="flex flex-col gap-1">
                           <span className="font-medium">{notif.title}</span>
                           <span className="text-xs text-slate-400">{notif.message}</span>
@@ -193,22 +193,22 @@ const Header = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="rounded-full bg-slate-800 border border-slate-700">
+                  <Button variant="ghost" size="icon" className="rounded-full bg-stone-100 border border-slate-200 text-slate-700">
                     <User className="w-5 h-5" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-slate-900 border-slate-700 min-w-[200px] text-white">
+                <DropdownMenuContent align="end" className="bg-white border-slate-200 min-w-[200px] text-slate-800 shadow-xl">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none truncate">{user.email || user.phone}</p>
-                      {isAdmin && <span className="text-[10px] bg-purple-600 px-1.5 py-0.5 rounded w-fit">ADMIN</span>}
+                      {isAdmin && <span className="text-[10px] bg-accent-600 px-1.5 py-0.5 rounded w-fit">ADMIN</span>}
                     </div>
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-slate-800" />
-                  <DropdownMenuItem onClick={() => navigate('/profile')} className="focus:bg-slate-800 cursor-pointer">
+                  <DropdownMenuSeparator className="bg-slate-100" />
+                  <DropdownMenuItem onClick={() => navigate('/profile')} className="focus:bg-stone-50 cursor-pointer">
                     <Settings className="w-4 h-4 mr-2" /> Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleSignOut} className="focus:bg-slate-800 cursor-pointer text-red-400 hover:text-red-300">
+                  <DropdownMenuItem onClick={handleSignOut} className="focus:bg-stone-50 cursor-pointer text-red-600 hover:text-red-500">
                     <LogOut className="w-4 h-4 mr-2" /> Sign Out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -219,11 +219,11 @@ const Header = () => {
               <Button
                 variant="outline"
                 onClick={() => navigate('/login')}
-                className="hidden sm:inline-flex border-slate-600 text-white bg-slate-900/40 hover:bg-slate-800 hover:border-slate-500"
+                className="hidden sm:inline-flex border-slate-300 text-slate-700 bg-white hover:bg-stone-50 hover:border-slate-400"
               >
                 Login
               </Button>
-              <Button onClick={() => navigate('/register')} className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-900/20">
+              <Button onClick={() => navigate('/register')} className="bg-accent-600 hover:bg-accent-700 text-white shadow-lg shadow-accent-900/20">
                 Register
               </Button>
             </div>
@@ -237,13 +237,13 @@ const Header = () => {
                   <Menu className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-slate-900 border-slate-800 w-full max-w-xs">
+              <SheetContent side="right" className="bg-white border-slate-200 w-full max-w-xs text-slate-800">
                 <div className="flex flex-col gap-6 mt-8">
                    <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                     <Input 
                       placeholder="Search..." 
-                      className="pl-10 bg-slate-800 border-slate-700 text-white"
+                      className="pl-10 bg-stone-50 border-slate-200 text-slate-800"
                       onChange={(e) => handleSearch(e.target.value)}
                     />
                   </div>
@@ -264,7 +264,7 @@ const Header = () => {
                       <Sparkles className="w-5 h-5" /> Promotion
                     </Link>
                     {isAdmin && (
-                      <Link to="/admin" className="text-lg font-medium text-purple-400 hover:text-purple-300 flex items-center gap-3 border-t border-slate-800 pt-4 mt-2">
+                      <Link to="/admin" className="text-lg font-medium text-accent-400 hover:text-accent-300 flex items-center gap-3 border-t border-slate-800 pt-4 mt-2">
                         <ShieldCheck className="w-5 h-5" /> Admin Dashboard
                       </Link>
                     )}

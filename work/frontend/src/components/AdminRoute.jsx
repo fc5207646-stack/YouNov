@@ -19,8 +19,8 @@ const AdminRoute = ({ children }) => {
 
   if (loading || isChecking) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-950 text-white">
-        <Loader2 className="w-10 h-10 animate-spin text-purple-600 mb-4" />
+      <div className="min-h-screen flex flex-col items-center justify-center bg-page text-slate-800">
+        <Loader2 className="w-10 h-10 animate-spin text-accent-600 mb-4" />
         <p className="text-slate-400 animate-pulse">Verifying privileges...</p>
       </div>
     );

@@ -28,14 +28,14 @@ const PointsHistoryTable = ({ userId }) => {
   };
 
   if (loading) {
-    return <div className="flex justify-center p-8"><Loader2 className="animate-spin text-purple-500" /></div>;
+    return <div className="flex justify-center p-8"><Loader2 className="animate-spin text-accent-500" /></div>;
   }
 
   return (
-    <div className="rounded-md border border-slate-800 bg-slate-900/50">
+    <div className="rounded-md border border-slate-200 bg-white">
       <Table>
         <TableHeader>
-          <TableRow className="border-slate-800 hover:bg-slate-900">
+          <TableRow className="border-slate-200 hover:bg-stone-50">
             <TableHead className="text-slate-400">Date</TableHead>
             <TableHead className="text-slate-400">Activity</TableHead>
             <TableHead className="text-right text-slate-400">Delta</TableHead>
@@ -52,12 +52,12 @@ const PointsHistoryTable = ({ userId }) => {
             </TableRow>
           ) : (
             history.map((item) => (
-              <TableRow key={item.id} className="border-slate-800 hover:bg-slate-800/50">
+              <TableRow key={item.id} className="border-slate-200 hover:bg-stone-50">
                 <TableCell className="text-slate-300">
                   {format(new Date(item.createdAt), 'MMM dd, yyyy HH:mm')}
                 </TableCell>
                 <TableCell>
-                  <Badge variant="outline" className="border-purple-500/30 text-purple-400 capitalize">
+                  <Badge variant="outline" className="border-accent-500/30 text-accent-400 capitalize">
                     {item.reason}
                   </Badge>
                 </TableCell>

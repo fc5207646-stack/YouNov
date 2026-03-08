@@ -102,16 +102,16 @@ const ChapterReaderPage = () => {
      }
   };
 
-  if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white"><Loader2 className="animate-spin w-8 h-8"/></div>;
-  if (error) return <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-white p-4"><AlertCircle className="w-12 h-12 text-red-500 mb-4"/><p>{error}</p><Button onClick={() => window.location.reload()} className="mt-4">Retry</Button></div>;
+  if (loading) return <div className="min-h-screen bg-page flex items-center justify-center text-slate-800"><Loader2 className="animate-spin w-8 h-8 text-accent-500"/></div>;
+  if (error) return <div className="min-h-screen bg-page flex flex-col items-center justify-center text-slate-800 p-4"><AlertCircle className="w-12 h-12 text-red-500 mb-4"/><p>{error}</p><Button onClick={() => window.location.reload()} className="mt-4">Retry</Button></div>;
 
   if (!hasAccess) {
       return (
-          <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-center px-4">
+          <div className="min-h-screen bg-page flex flex-col items-center justify-center text-center px-4">
               <Helmet><title>Premium Content | YouNov</title></Helmet>
-              <BookOpen className="w-20 h-20 text-yellow-500 mb-6" />
-              <h1 className="text-3xl font-bold text-white mb-2">Premium Content</h1>
-              <p className="text-slate-400 mb-8 max-w-md">This chapter is locked for premium members. Upgrade your subscription to continue reading.</p>
+              <BookOpen className="w-20 h-20 text-amber-500 mb-6" />
+              <h1 className="text-3xl font-bold text-slate-800 mb-2">Premium Content</h1>
+              <p className="text-slate-600 mb-8 max-w-md">This chapter is locked for premium members. Upgrade your subscription to continue reading.</p>
               <Button size="lg" onClick={() => navigate('/subscription')} className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold hover:from-yellow-400 hover:to-orange-400">Unlock Now</Button>
               <Button variant="link" onClick={() => navigate(`/novel/${novelId}`)} className="text-slate-500 mt-4">Back to Novel</Button>
           </div>
@@ -176,7 +176,7 @@ const ChapterReaderPage = () => {
 
               <div className="flex justify-between items-center border-t border-b py-8 my-12" style={{ borderColor: userSettings.textColor + '20' }}>
                   <Button variant="outline" onClick={() => nav('prev')} style={{ color: userSettings.textColor, borderColor: userSettings.textColor + '40' }}>Previous</Button>
-                  <Button className="bg-purple-600 hover:bg-purple-700 text-white" onClick={() => nav('next')}>Next Chapter</Button>
+                  <Button className="bg-accent-600 hover:bg-accent-700 text-white" onClick={() => nav('next')}>Next Chapter</Button>
               </div>
 
               <CommentsSection novelId={novelId} chapterId={chapterId} />

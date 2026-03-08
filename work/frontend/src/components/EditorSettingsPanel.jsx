@@ -38,7 +38,7 @@ const EditorSettingsPanel = ({ settings, onUpdate, onFormat }) => {
     <div className="h-full overflow-y-auto p-6 space-y-8 bg-white text-slate-900 border-l border-slate-200 shadow-xl">
       <div>
         <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800">
-           <Type className="w-5 h-5 text-purple-600" /> Typography
+           <Type className="w-5 h-5 text-accent-600" /> Typography
         </h3>
         
         <div className="space-y-4">
@@ -101,7 +101,7 @@ const EditorSettingsPanel = ({ settings, onUpdate, onFormat }) => {
 
       <div>
         <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800">
-           <ArrowUpDown className="w-5 h-5 text-purple-600" /> Paragraph
+           <ArrowUpDown className="w-5 h-5 text-accent-600" /> Paragraph
         </h3>
         
         <div className="space-y-6">
@@ -117,7 +117,7 @@ const EditorSettingsPanel = ({ settings, onUpdate, onFormat }) => {
                            onClick={() => onUpdate('lineHeight', lh)}
                            className={cn(
                              "w-12 h-9 font-medium transition-all",
-                             settings.lineHeight === lh ? "bg-purple-600 hover:bg-purple-700 text-white border-transparent shadow-md" : "text-slate-600 border-slate-300 hover:bg-slate-100"
+                             settings.lineHeight === lh ? "bg-accent-600 hover:bg-accent-700 text-white border-transparent shadow-md" : "text-slate-600 border-slate-300 hover:bg-slate-100"
                            )}
                         >
                             {lh}
@@ -143,7 +143,7 @@ const EditorSettingsPanel = ({ settings, onUpdate, onFormat }) => {
                             onClick={() => onUpdate('textAlign', align.value)}
                             className={cn(
                                 "flex-1 h-8 rounded transition-all",
-                                settings.textAlign === align.value ? "bg-white shadow-sm text-purple-600" : "text-slate-500 hover:text-slate-900"
+                                settings.textAlign === align.value ? "bg-white shadow-sm text-accent-600" : "text-slate-500 hover:text-slate-900"
                             )}
                         >
                             <align.icon className="w-4 h-4" />
@@ -158,7 +158,7 @@ const EditorSettingsPanel = ({ settings, onUpdate, onFormat }) => {
 
       <div>
         <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-slate-800">
-           <Palette className="w-5 h-5 text-purple-600" /> Formatting
+           <Palette className="w-5 h-5 text-accent-600" /> Formatting
         </h3>
         
         <div className="space-y-2">
@@ -174,7 +174,7 @@ const EditorSettingsPanel = ({ settings, onUpdate, onFormat }) => {
                         key={format.cmd}
                         variant="outline"
                         onMouseDown={(e) => handleMouseDown(e, () => onFormat(format.cmd))}
-                        className="flex-1 h-10 border-slate-300 text-slate-700 hover:bg-slate-100 hover:text-purple-600 transition-colors"
+                        className="flex-1 h-10 border-slate-300 text-slate-700 hover:bg-slate-100 hover:text-accent-600 transition-colors"
                         title={format.label}
                     >
                         <format.icon className="w-5 h-5" />

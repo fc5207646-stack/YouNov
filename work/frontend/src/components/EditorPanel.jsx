@@ -96,7 +96,7 @@ const EditorPanel = forwardRef(({
              variant="ghost" 
              size="sm" 
              onClick={() => setShowSettings(!showSettings)}
-             className={cn("text-slate-400 hover:text-white hover:bg-slate-800", showSettings && "bg-slate-800 text-purple-400")}
+             className={cn("text-slate-400 hover:text-white hover:bg-slate-800", showSettings && "bg-slate-800 text-accent-400")}
            >
              <SettingsIcon className="w-4 h-4 mr-2" />
              Settings
@@ -130,7 +130,7 @@ const EditorPanel = forwardRef(({
         <div className="w-[30%] bg-slate-50 border-l border-slate-200 flex flex-col z-20 shadow-2xl h-full animate-in slide-in-from-right duration-300">
            <div className="p-4 border-b border-slate-200 bg-white flex justify-between items-center shrink-0">
               <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wide flex items-center gap-2">
-                <LayoutTemplate className="w-4 h-4 text-purple-600" /> Style Settings
+                <LayoutTemplate className="w-4 h-4 text-accent-600" /> Style Settings
               </h3>
               <Button variant="ghost" size="icon" onClick={() => setShowSettings(false)} className="h-6 w-6 text-slate-400 hover:text-slate-600">
                  <X className="w-4 h-4" />
@@ -141,7 +141,7 @@ const EditorPanel = forwardRef(({
               {/* Font Settings */}
               <section className="space-y-4">
                  <div className="flex items-center gap-2 pb-1 border-b border-slate-200">
-                   <Type className="w-3.5 h-3.5 text-purple-500" />
+                   <Type className="w-3.5 h-3.5 text-accent-500" />
                    <span className="text-xs font-bold text-slate-500 uppercase">Font Settings</span>
                  </div>
                  
@@ -187,7 +187,7 @@ const EditorPanel = forwardRef(({
               {/* Paragraph Settings */}
               <section className="space-y-4">
                  <div className="flex items-center gap-2 pb-1 border-b border-slate-200">
-                   <Heading className="w-3.5 h-3.5 text-purple-500" />
+                   <Heading className="w-3.5 h-3.5 text-accent-500" />
                    <span className="text-xs font-bold text-slate-500 uppercase">Paragraph Settings</span>
                  </div>
                  
@@ -202,7 +202,7 @@ const EditorPanel = forwardRef(({
                                className={cn(
                                  "px-3 py-1.5 text-xs border rounded transition-all font-medium",
                                  settings.lineHeight === lh 
-                                  ? "bg-purple-100 border-purple-400 text-purple-700 shadow-sm" 
+                                  ? "bg-accent-100 border-accent-400 text-accent-700 shadow-sm" 
                                   : "bg-white border-slate-200 text-slate-600 hover:border-slate-300"
                                )}
                              >
@@ -227,7 +227,7 @@ const EditorPanel = forwardRef(({
               {/* Text Format Section */}
               <section className="space-y-4">
                  <div className="flex items-center gap-2 pb-1 border-b border-slate-200">
-                   <MousePointerClick className="w-3.5 h-3.5 text-purple-500" />
+                   <MousePointerClick className="w-3.5 h-3.5 text-accent-500" />
                    <span className="text-xs font-bold text-slate-500 uppercase">Text Format</span>
                  </div>
                  <div className="flex bg-white border border-slate-300 rounded p-1 gap-1 shadow-sm">
@@ -252,7 +252,7 @@ const FormatButton = ({ active, icon: Icon, onClick, title }) => (
     onMouseDown={(e) => { e.preventDefault(); onClick(); }}
     className={cn(
       "flex-1 h-8 flex items-center justify-center rounded transition-all",
-      active ? "bg-purple-100 text-purple-700 font-bold shadow-inner" : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
+      active ? "bg-accent-100 text-accent-700 font-bold shadow-inner" : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
     )}
   >
     <Icon className="w-4 h-4" />
@@ -265,7 +265,7 @@ const AlignButton = ({ active, icon: Icon, onClick }) => (
       onClick={onClick}
       className={cn(
         "flex-1 h-8 flex items-center justify-center rounded transition-all",
-        active ? "bg-purple-100 text-purple-700 shadow-inner" : "text-slate-400 hover:text-slate-700 hover:bg-slate-50"
+        active ? "bg-accent-100 text-accent-700 shadow-inner" : "text-slate-400 hover:text-slate-700 hover:bg-slate-50"
       )}
    >
       <Icon className="w-4 h-4" />

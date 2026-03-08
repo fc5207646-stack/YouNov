@@ -1,0 +1,61 @@
+{
+  "retainDays": 14,
+  "syncCode": false,
+  "updateWork": false,
+  "jump": {
+    "enabled": true,
+    "sshHost": "107.174.174.123",
+    "sshUser": "root",
+    "sshPort": 22
+  },
+  "sshOptions": [
+    "-o",
+    "BatchMode=yes",
+    "-o",
+    "ConnectTimeout=10",
+    "-o",
+    "ServerAliveInterval=5",
+    "-o",
+    "ServerAliveCountMax=2",
+    "-o",
+    "StrictHostKeyChecking=accept-new"
+  ],
+  "sshPrivateKey": "C:\\Users\\Administrator\\.ssh\\id_ed25519",
+  "code": {
+    "enabled": false,
+    "servers": []
+  },
+  "pg": {
+    "enabled": true,
+    "targets": [
+      {
+        "name": "primary",
+        "sshHost": "10.50.0.4",
+        "sshUser": "root",
+        "sshPort": 22,
+        "method": "sudo_postgres_socket",
+        "dbName": "younov"
+      },
+      {
+        "name": "replica",
+        "sshHost": "10.50.0.5",
+        "sshUser": "root",
+        "sshPort": 22,
+        "method": "sudo_postgres_socket",
+        "dbName": "younov"
+      }
+    ]
+  },
+  "redis": {
+    "enabled": true,
+    "targets": [
+      {
+        "name": "redis",
+        "sshHost": "10.50.0.6",
+        "sshUser": "root",
+        "sshPort": 22,
+        "password": "<1994212Fengjie@>"
+      }
+    ]
+  }
+}

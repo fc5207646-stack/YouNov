@@ -24,11 +24,11 @@ const ReaderSettings = ({ settings, onUpdate }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-800">
+        <Button variant="ghost" size="icon" className="text-slate-600 hover:text-slate-800 hover:bg-stone-100">
           <Settings className="w-5 h-5" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="bg-slate-900 border-slate-800 text-white w-[350px]">
+      <SheetContent className="bg-white border-slate-200 text-slate-800 w-[350px] shadow-xl">
         <SheetHeader>
           <SheetTitle className="text-white text-xl">Reading Settings</SheetTitle>
         </SheetHeader>
@@ -38,10 +38,10 @@ const ReaderSettings = ({ settings, onUpdate }) => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <Label className="text-base flex items-center gap-2">
-                <Type className="w-4 h-4 text-purple-400" />
+                <Type className="w-4 h-4 text-accent-400" />
                 Font Size
               </Label>
-              <span className="text-sm font-mono bg-slate-800 px-2 py-1 rounded text-purple-300">
+              <span className="text-sm font-mono bg-stone-100 px-2 py-1 rounded text-accent-600">
                 {settings.fontSize}px
               </span>
             </div>
@@ -69,7 +69,7 @@ const ReaderSettings = ({ settings, onUpdate }) => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <Label className="text-base">Line Spacing</Label>
-              <span className="text-sm font-mono bg-slate-800 px-2 py-1 rounded text-purple-300">
+              <span className="text-sm font-mono bg-stone-100 px-2 py-1 rounded text-accent-600">
                 {settings.lineHeight.toFixed(1)}
               </span>
             </div>
@@ -85,7 +85,7 @@ const ReaderSettings = ({ settings, onUpdate }) => {
           {/* Background Color */}
           <div className="space-y-4">
             <Label className="text-base flex items-center gap-2">
-              <Palette className="w-4 h-4 text-purple-400" />
+              <Palette className="w-4 h-4 text-accent-400" />
               Background Color
             </Label>
             <div className="grid grid-cols-2 gap-3">
@@ -99,7 +99,7 @@ const ReaderSettings = ({ settings, onUpdate }) => {
                   }}
                   className={`p-4 rounded-lg border-2 transition-all ${
                     settings.bgColor === color.value
-                      ? 'border-purple-500 ring-2 ring-purple-500/30 shadow-lg'
+                      ? 'border-accent-500 ring-2 ring-accent-500/30 shadow-lg'
                       : 'border-slate-700 hover:border-slate-600'
                   }`}
                   style={{ 
@@ -115,7 +115,7 @@ const ReaderSettings = ({ settings, onUpdate }) => {
           </div>
 
           {/* Preview */}
-          <div className="p-4 rounded-lg border border-slate-700 bg-slate-800">
+          <div className="p-4 rounded-lg border border-slate-200 bg-stone-50">
             <div className="text-xs text-slate-400 mb-2 uppercase tracking-wider">Preview</div>
             <div 
               className="p-4 rounded transition-colors"
