@@ -1,0 +1,328 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum NovelStatus {
+  ONGOING
+  COMPLETED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  EXPIRED
+}
+
+enum BillingProvider {
+  STRIPE
+}
+
+enum CheckoutStatus {
+  CREATED
+  PENDING
+  PAID
+  CANCELED
+  EXPIRED
+}
+
+enum PromoType {
+  PERCENT   // 例如 15 = 15%
+  AMOUNT    // 固定金额（单位：分）
+  COINS     // 赠送站内币/积分（pointsBalance）
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  displayName  String
+  username     String?  @unique
+  avatarUrl    String?
+  bio          String?
+  role         UserRole @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  pointsBalance Int @default(0)
+
+  isBanned     Boolean  @default(false)
+  bannedUntil  DateTime?
+  bannedReason String?
+
+  stripeCustomerId String?
+
+  subscriptions Subscription[]
+  referralCode  ReferralCode?
+  referralEvents ReferralEvent[] @relation("ReferralEventUser")
+  readingHistory ReadingHistory[]
+  pointsLedger   PointsLedger[]
+
+  checkoutSessions CheckoutSession[]
+  promoRedemptions PromoRedemption[]
+
+  comments Comment[]
+  ratings  NovelRating[]
+  bookshelfItems BookshelfItem[]
+}
+
+model Novel {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  authorName  String
+  coverUrl    String?
+  description String
+  tags        String @default("[]")
+  category    String?
+  views       Int      @default(0)
+  rating      Float    @default(0)
+  ratingCount Int      @default(0)
+  isPublished Boolean  @default(true)
+  status      NovelStatus @default(ONGOING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  chapters Chapter[]
+  ratings  NovelRating[]
+  comments Comment[]
+  bookshelfItems BookshelfItem[]
+
+  @@index([category])
+  @@index([views])
+  @@index([rating])
+  @@index([ratingCount])
+  @@index([updatedAt])
+  @@index([isPublished])
+}
+
+model Chapter {
+  id         String   @id @default(cuid())
+  novelId    String
+  novel      Novel    @relation(fields: [novelId], references: [id], onDelete: Cascade)
+
+  orderIndex Int
+  title      String
+  content    String
+  wordCount  Int
+
+  isFree     Boolean @default(false)
+  isPublished Boolean @default(true)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  readingHistory ReadingHistory[]
+  comments Comment[]
+
+  @@unique([novelId, orderIndex])
+  @@index([novelId, isPublished])
+}
+
+model NovelRating {
+  id        String   @id @default(cuid())
+  novelId   String
+  userId    String
+  rating    Int
+  createdAt DateTime @default(now())
+
+  novel Novel @relation(fields: [novelId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([novelId, userId])
+  @@index([novelId, rating])
+  @@index([userId, createdAt])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  novelId   String
+  chapterId String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+
+  novel   Novel   @relation(fields: [novelId], references: [id], onDelete: Cascade)
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([chapterId, createdAt])
+  @@index([novelId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model BookshelfItem {
+  id            String   @id @default(cuid())
+  userId        String
+  novelId       String
+  lastChapterId String?
+  progress      Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  novel Novel @relation(fields: [novelId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, novelId])
+  @@index([userId, updatedAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json?
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id         String             @id @default(cuid())
+  userId     String
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planId     String
+  status     SubscriptionStatus @default(ACTIVE)
+  startsAt   DateTime
+  expiresAt  DateTime
+  provider   BillingProvider?   // 为空表示 mock/内部开通
+  providerRef String?           // Stripe subscription id / internal ref
+  checkoutSessionId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([userId, status, expiresAt])
+}
+
+model CheckoutSession {
+  id          String         @id @default(cuid())
+  provider    BillingProvider
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  planId      String
+  status      CheckoutStatus @default(CREATED)
+  amountCents Int
+  currency    String         @default("usd")
+
+  promoCodeId String?
+  promoCode   PromoCode?     @relation(fields: [promoCodeId], references: [id], onDelete: SetNull)
+
+  providerSessionId String?  @unique // Stripe checkout session id 等
+  providerCustomerId String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([provider, providerSessionId])
+}
+
+model PromoCode {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  type          PromoType
+  value         Int
+  active        Boolean   @default(true)
+  expiresAt     DateTime?
+  maxRedemptions Int?
+  redeemedCount Int       @default(0)
+  note          String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  redemptions PromoRedemption[]
+  checkoutSessions CheckoutSession[]
+
+  @@index([active, expiresAt])
+}
+
+model PromoRedemption {
+  id          String   @id @default(cuid())
+  promoCodeId String
+  promoCode   PromoCode @relation(fields: [promoCodeId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@unique([promoCodeId, userId])
+  @@index([userId, createdAt])
+}
+
+model PointsLedger {
+  id        String   @id @default(cuid())
+  userId    String
+  delta     Int
+  reason    String
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model ReferralCode {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  userId    String   @unique
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  events ReferralEvent[]
+}
+
+model ReferralEvent {
+  id            String   @id @default(cuid())
+  referralCodeId String
+  referralCode  ReferralCode @relation(fields: [referralCodeId], references: [id], onDelete: Cascade)
+
+  // who registered (optional if just click)
+  userId        String?
+  user          User? @relation("ReferralEventUser", fields: [userId], references: [id], onDelete: SetNull)
+
+  eventType     String // "click" | "register" | "subscribe"
+  ip            String?
+  userAgent     String?
+  createdAt     DateTime @default(now())
+
+  @@index([referralCodeId, eventType, createdAt])
+}
+
+model ReadingHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  chapterId String
+  progress  Int      @default(0) // percent 0-100
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chapterId])
+  @@index([userId, updatedAt])
+}
+
+model IpWhitelist {
+  id        String   @id @default(cuid())
+  ipCidr    String
+  note      String?
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
